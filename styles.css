@@ -470,7 +470,8 @@ a:hover {
 /* --- 1. PUBLIC PROFILE VIEW --- */
 .profile-banner-container {
     width: 100%;
-    height: 300px;
+    aspect-ratio: 3 / 1;
+    height: auto;
     border-radius: var(--border-radius-card) var(--border-radius-card) 0 0;
     overflow: hidden;
     position: relative;
@@ -480,7 +481,8 @@ a:hover {
 :root[data-theme="comic-grid"] .profile-banner-container, :root[data-theme="deku-comic-grid"] .profile-banner-container {
     border-bottom: 3px solid #121212;
     border-radius: 0;
-    height: 300px;
+    aspect-ratio: 3 / 1;
+    height: auto;
 }
 
 .profile-banner {
@@ -525,11 +527,6 @@ a:hover {
     .profile-sidebar-column {
         position: relative;
         top: 0;
-    }
-    .profile-banner-container,
-    :root[data-theme="comic-grid"] .profile-banner-container,
-    :root[data-theme="deku-comic-grid"] .profile-banner-container {
-        height: 200px !important;
     }
 }
 
@@ -1939,12 +1936,6 @@ a:hover {
     #btn-theme-toggle {
         width: 32px !important;
         height: 32px !important;
-    }
-    
-    .profile-banner-container,
-    :root[data-theme="comic-grid"] .profile-banner-container,
-    :root[data-theme="deku-comic-grid"] .profile-banner-container {
-        height: 130px !important;
     }
 }
 
