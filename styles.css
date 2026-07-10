@@ -1937,5 +1937,33 @@ a:hover {
         width: 32px !important;
         height: 32px !important;
     }
+    
+    /* Shrink Landing Page Elements on Mobile */
+    .landing-container {
+        margin: 20px auto !important;
+        padding: 30px 20px !important;
+    }
+    .landing-emoji-logo {
+        font-size: 2.2rem !important;
+        margin-bottom: 12px !important;
+    }
+    .landing-welcome-title {
+        font-size: 1.6rem !important;
+        margin-bottom: 16px !important;
+    }
+    :root[data-theme="comic-grid"] .landing-welcome-title, 
+    :root[data-theme="deku-comic-grid"] .landing-welcome-title {
+        font-size: 1.8rem !important;
+    }
+    .landing-welcome-message {
+        font-size: 0.88rem !important;
+        margin-bottom: 20px !important;
+        padding: 8px 10px 8px 12px !important;
+    }
+    #btn-landing-login, 
+    #btn-landing-profile {
+        padding: 10px 24px !important;
+        font-size: 0.95rem !important;
+    }
 }
 
