@@ -1,0 +1,298 @@
+// Vercel Serverless Function to serve dynamic crawler metadata for individual Q&As and posts
+module.exports = async function handler(req, res) {
+    const { id, avatar, header } = req.query;
+    
+    // 1. Handle dynamic image requests directly from Firestore (base64 or remote URL)
+    if (avatar || header) {
+        try {
+            const ownerUrl = `https://firestore.googleapis.com/v1/projects/bkdkfiloweek26/databases/(default)/documents/owners/bkdk`;
+            const ownerRes = await fetch(ownerUrl);
+            if (ownerRes.ok) {
+                const ownerDoc = await ownerRes.json();
+                const fields = ownerDoc.fields;
+                
+                if (avatar) {
+                    const avatarVal = fields?.avatar?.stringValue || "";
+                    if (avatarVal.startsWith('data:image/')) {
+                        if (avatarVal.includes(';base64,')) {
+                            const parts = avatarVal.split(';base64,');
+                            if (parts.length === 2) {
+                                const contentType = parts[0].replace('data:', '');
+                                const base64Data = parts[1].replace(/\s/g, '');
+                                const imgBuffer = Buffer.from(base64Data, 'base64');
+                                res.setHeader("Content-Type", contentType);
+                                res.setHeader("Cache-Control", "public, max-age=3600"); // Cache for 1 hour to prevent excessive database hits
+                                return res.status(200).send(imgBuffer);
+                            }
+                        } else if (avatarVal.includes(';utf8,') || avatarVal.includes(';utf-8,') || avatarVal.includes(',')) {
+                            let contentType = 'image/svg+xml';
+                            let svgText = '';
+                            if (avatarVal.includes(';utf8,')) {
+                                const parts = avatarVal.split(';utf8,');
+                                contentType = parts[0].replace('data:', '');
+                                svgText = decodeURIComponent(parts[1]);
+                            } else if (avatarVal.includes(';utf-8,')) {
+                                const parts = avatarVal.split(';utf-8,');
+                                contentType = parts[0].replace('data:', '');
+                                svgText = decodeURIComponent(parts[1]);
+                            } else {
+                                const commaIdx = avatarVal.indexOf(',');
+                                if (commaIdx !== -1) {
+                                    const prefix = avatarVal.substring(0, commaIdx);
+                                    contentType = prefix.replace('data:', '').split(';')[0];
+                                    svgText = decodeURIComponent(avatarVal.substring(commaIdx + 1));
+                                }
+                            }
+                            if (svgText) {
+                                res.setHeader("Content-Type", contentType);
+                                res.setHeader("Cache-Control", "public, max-age=3600");
+                                return res.status(200).send(svgText);
+                            }
+                        }
+                    } else if (avatarVal.startsWith('http')) {
+                        return res.redirect(302, avatarVal);
+                    }
+                    // Fallback to static avatar.png
+                    return res.redirect(302, "https://wonderduo.vercel.app/avatar.png");
+                }
+                
+                if (header) {
+                    const headerVal = fields?.header?.stringValue || "";
+                    if (headerVal.startsWith('data:image/')) {
+                        if (headerVal.includes(';base64,')) {
+                            const parts = headerVal.split(';base64,');
+                            if (parts.length === 2) {
+                                const contentType = parts[0].replace('data:', '');
+                                const base64Data = parts[1].replace(/\s/g, '');
+                                const imgBuffer = Buffer.from(base64Data, 'base64');
+                                res.setHeader("Content-Type", contentType);
+                                res.setHeader("Cache-Control", "public, max-age=3600"); // Cache for 1 hour
+                                return res.status(200).send(imgBuffer);
+                            }
+                        } else if (headerVal.includes(';utf8,') || headerVal.includes(';utf-8,') || headerVal.includes(',')) {
+                            let contentType = 'image/svg+xml';
+                            let svgText = '';
+                            if (headerVal.includes(';utf8,')) {
+                                const parts = headerVal.split(';utf8,');
+                                contentType = parts[0].replace('data:', '');
+                                svgText = decodeURIComponent(parts[1]);
+                            } else if (headerVal.includes(';utf-8,')) {
+                                const parts = headerVal.split(';utf-8,');
+                                contentType = parts[0].replace('data:', '');
+                                svgText = decodeURIComponent(parts[1]);
+                            } else {
+                                const commaIdx = headerVal.indexOf(',');
+                                if (commaIdx !== -1) {
+                                    const prefix = headerVal.substring(0, commaIdx);
+                                    contentType = prefix.replace('data:', '').split(';')[0];
+                                    svgText = decodeURIComponent(headerVal.substring(commaIdx + 1));
+                                }
+                            }
+                            if (svgText) {
+                                res.setHeader("Content-Type", contentType);
+                                res.setHeader("Cache-Control", "public, max-age=3600");
+                                return res.status(200).send(svgText);
+                            }
+                        }
+                    } else if (headerVal.startsWith('http')) {
+                        return res.redirect(302, headerVal);
+                    }
+                    
+                    // Fallback banner gradient SVG
+                    const defaultSvg = `<svg xmlns="http://www.w3.org/2000/svg" width="800" height="400">
+                        <defs>
+                            <linearGradient id="grad" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" style="stop-color:#ff9a9e;stop-opacity:1" />
+                                <stop offset="100%" style="stop-color:#fecfef;stop-opacity:1" />
+                            </linearGradient>
+                        </defs>
+                        <rect width="100%" height="100%" fill="url(#grad)" />
+                    </svg>`;
+                    res.setHeader("Content-Type", "image/svg+xml");
+                    res.setHeader("Cache-Control", "public, max-age=3600");
+                    return res.status(200).send(defaultSvg);
+                }
+            }
+        } catch (err) {
+            console.error("Error serving dynamic resource from Firestore:", err);
+        }
+        
+        // Final fallback if anything fails
+        if (avatar) {
+            return res.redirect(302, "https://wonderduo.vercel.app/avatar.png");
+        } else {
+            res.setHeader("Content-Type", "image/svg+xml");
+            return res.status(200).send('<svg xmlns="http://www.w3.org/2000/svg" width="800" height="400"><rect width="100%" height="100%" fill="#ff9a9e" /></svg>');
+        }
+    }
+
+    // Default metadata values
+    let userHandle = "wonderduo";
+    let userDisplayName = "wonder duo";
+    
+    // We fetch the dynamic avatar and header endpoints so they remain synced with Firestore.
+    // Adding a timestamp/version helps bypass caching of old profile pictures.
+    const cacheBuster = Date.now();
+    const avatarUrl = `https://wonderduo.vercel.app/api/share?avatar=1&v=${cacheBuster}`;
+    
+    // 2. Fetch owner details from Firestore to show correct displayName and handle in previews
+    try {
+        const ownerUrl = `https://firestore.googleapis.com/v1/projects/bkdkfiloweek26/databases/(default)/documents/owners/bkdk`;
+        const ownerRes = await fetch(ownerUrl);
+        if (ownerRes.ok) {
+            const ownerDoc = await ownerRes.json();
+            const fields = ownerDoc.fields;
+            if (fields) {
+                userDisplayName = fields.displayName?.stringValue || "wonder duo";
+                userHandle = fields.handle?.stringValue || "wonderduo";
+            }
+        }
+    } catch (err) {
+        console.error("Error fetching owner profile in share script:", err);
+    }
+    
+    // Helper to truncate text with ellipsis if it exceeds limit
+    const truncate = (text, maxLength) => {
+        if (!text) return "";
+        if (text.length <= maxLength) return text;
+        return text.substring(0, maxLength - 3) + "...";
+    };
+
+    let title = "wonder duo Q&A 💥⚡";
+    let desc = "Ask us questions anonymously or publicly! BakuDeku Q&A Space.";
+    
+    // 3. If a Q&A or Post ID is specified, fetch the details to customize metadata tags
+    if (id) {
+        try {
+            const firestoreUrl = `https://firestore.googleapis.com/v1/projects/bkdkfiloweek26/databases/(default)/documents/questions/${id}`;
+            const response = await fetch(firestoreUrl);
+            
+            if (response.ok) {
+                const doc = await response.json();
+                const fields = doc.fields;
+                
+                if (fields) {
+                    const isPost = fields.isPost?.booleanValue || false;
+                    
+                    if (isPost) {
+                        const answerText = fields.answer?.stringValue || "";
+                        title = `${userDisplayName} posted an update`;
+                        desc = truncate(answerText, 200) || "View update on wonder duo!";
+                    } else {
+                        const questionText = fields.text?.stringValue || "";
+                        const answerText = fields.answer?.stringValue || "";
+                        const truncatedQ = truncate(questionText, 80);
+                        title = `${userDisplayName} answered: "${truncatedQ}"`;
+                        desc = truncate(answerText, 200) || "Ask us questions anonymously or publicly! BakuDeku Q&A Space.";
+                    }
+                }
+            }
+        } catch (err) {
+            console.error("Error fetching question metadata from Firestore:", err);
+        }
+    }
+    
+    // Escape quotes to prevent breaking meta tags
+    const escapeHtml = (text) => {
+        if (!text) return "";
+        return text
+            .replace(/&/g, "&amp;")
+            .replace(/</g, "&lt;")
+            .replace(/>/g, "&gt;")
+            .replace(/"/g, "&quot;")
+            .replace(/'/g, "&#039;");
+    };
+
+    const escapedTitle = escapeHtml(title);
+    const escapedDesc = escapeHtml(desc);
+    const escapedId = id ? encodeURIComponent(id) : "";
+    const redirectUrl = id ? `/?q=${escapedId}#u/${userHandle}` : `/#u/${userHandle}`;
+    
+    // Serve HTML with custom meta tags and instant redirect
+    res.setHeader("Content-Type", "text/html; charset=utf-8");
+    res.status(200).send(`<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>${escapedTitle}</title>
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="${escapedTitle}">
+    <meta property="og:description" content="${escapedDesc}">
+    <meta property="og:image" content="${avatarUrl}">
+    <meta property="og:url" content="https://wonderduo.vercel.app/q/${escapedId}">
+    
+    <!-- Twitter / X -->
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="${escapedTitle}">
+    <meta name="twitter:description" content="${escapedDesc}">
+    <meta name="twitter:image" content="${avatarUrl}">
+    
+    <!-- Fallback Meta Refresh Redirect -->
+    <noscript>
+        <meta http-equiv="refresh" content="0;url=${redirectUrl}">
+    </noscript>
+    
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: #ffeef2;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            color: #ff69b4;
+        }
+        .redirect-box {
+            text-align: center;
+            padding: 30px;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(255, 105, 180, 0.15);
+            border: 1px solid rgba(255, 105, 180, 0.2);
+            max-width: 400px;
+            width: 90%;
+        }
+        .spinner {
+            width: 40px;
+            height: 40px;
+            border: 4px solid rgba(255, 105, 180, 0.1);
+            border-top: 4px solid #ff69b4;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 20px auto;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        h2 {
+            font-size: 1.25rem;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+        p {
+            font-size: 0.9rem;
+            color: #666;
+            margin: 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="redirect-box">
+        <div class="spinner"></div>
+        <h2>Redirecting you to WONDER DUO...</h2>
+        <p>If you are not redirected automatically, <a href="${redirectUrl}" style="color: #ff69b4; font-weight: 700; text-decoration: none;">click here</a>.</p>
+    </div>
+    
+    <script>
+        // Redirect browser to client-side app route
+        window.location.href = "${redirectUrl}";
+    </script>
+</body>
+</html>`);
+};
