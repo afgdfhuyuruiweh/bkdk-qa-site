@@ -10,7 +10,7 @@ if (window.FIREBASE_CONFIG && window.FIREBASE_CONFIG.apiKey) {
     const app = initializeApp(window.FIREBASE_CONFIG);
     const auth = getAuth(app);
     const db = getFirestore(app);
-    const questionsCol = collection(db, "bkdk_questions");
+    const questionsCol = collection(db, "questions");
 
     window.FIREBASE_ACTIVE = true;
 
@@ -53,7 +53,7 @@ if (window.FIREBASE_CONFIG && window.FIREBASE_CONFIG.apiKey) {
             setDoc(ownerDocRef, initialOwner);
 
             // Seed database questions only on very first owner creation!
-            const initialQs = JSON.parse(localStorage.getItem("bkdk_questions")) || [];
+            const initialQs = JSON.parse(localStorage.getItem("questions")) || [];
             initialQs.forEach(q => {
                 addDoc(questionsCol, {
                     senderName: q.senderName,
@@ -110,7 +110,7 @@ if (window.FIREBASE_CONFIG && window.FIREBASE_CONFIG.apiKey) {
             list.push({ id: doc.id, ...doc.data() });
         });
         
-        localStorage.setItem("bkdk_questions", JSON.stringify(list));
+        localStorage.setItem("questions", JSON.stringify(list));
         
         // Handle desktop notifications for new incoming questions
         if (!isInitialLoad) {
@@ -173,7 +173,7 @@ if (window.FIREBASE_CONFIG && window.FIREBASE_CONFIG.apiKey) {
 
     window.firebaseAddComment = async (itemId, text, senderName) => {
         try {
-            const docRef = doc(db, "bkdk_questions", itemId);
+            const docRef = doc(db, "questions", itemId);
             const docSnap = await getDoc(docRef);
             if (docSnap.exists()) {
                 const data = docSnap.data();
@@ -193,7 +193,7 @@ if (window.FIREBASE_CONFIG && window.FIREBASE_CONFIG.apiKey) {
 
     window.firebaseAnswerQuestion = async (questionId, answerText) => {
         try {
-            const docRef = doc(db, "bkdk_questions", questionId);
+            const docRef = doc(db, "questions", questionId);
             await updateDoc(docRef, {
                 answer: answerText,
                 answeredAt: new Date().toISOString()
@@ -205,7 +205,7 @@ if (window.FIREBASE_CONFIG && window.FIREBASE_CONFIG.apiKey) {
 
     window.firebaseUpdateSenderName = async (questionId, newName) => {
         try {
-            const docRef = doc(db, "bkdk_questions", questionId);
+            const docRef = doc(db, "questions", questionId);
             await updateDoc(docRef, {
                 senderName: newName ? newName.trim() : "Anonymous"
             });
@@ -216,7 +216,7 @@ if (window.FIREBASE_CONFIG && window.FIREBASE_CONFIG.apiKey) {
 
     window.firebaseDeleteQuestion = async (questionId) => {
         try {
-            const docRef = doc(db, "bkdk_questions", questionId);
+            const docRef = doc(db, "questions", questionId);
             await deleteDoc(docRef);
         } catch (e) {
             console.error("Firebase deleteQuestion error", e);
@@ -225,7 +225,7 @@ if (window.FIREBASE_CONFIG && window.FIREBASE_CONFIG.apiKey) {
 
     window.firebaseUpdateQuestion = async (questionId, fields) => {
         try {
-            const docRef = doc(db, "bkdk_questions", questionId);
+            const docRef = doc(db, "questions", questionId);
             await updateDoc(docRef, fields);
         } catch (e) {
             console.error("Firebase updateQuestion error", e);
@@ -234,7 +234,7 @@ if (window.FIREBASE_CONFIG && window.FIREBASE_CONFIG.apiKey) {
 
     window.firebaseLikeAnswer = async (questionId, visitorSessionId) => {
         try {
-            const docRef = doc(db, "bkdk_questions", questionId);
+            const docRef = doc(db, "questions", questionId);
             const docSnap = await getDoc(docRef);
             if (docSnap.exists()) {
                 const data = docSnap.data();
