@@ -10,6 +10,7 @@ if (window.FIREBASE_CONFIG && window.FIREBASE_CONFIG.apiKey) {
     const app = initializeApp(window.FIREBASE_CONFIG);
     const auth = getAuth(app);
     const db = getFirestore(app);
+    const questionsCol = collection(db, "bkdk_questions");
 
     window.FIREBASE_ACTIVE = true;
 
@@ -50,6 +51,21 @@ if (window.FIREBASE_CONFIG && window.FIREBASE_CONFIG.apiKey) {
                 adminPassword: ""
             };
             setDoc(ownerDocRef, initialOwner);
+
+            // Seed database questions only on very first owner creation!
+            const initialQs = JSON.parse(localStorage.getItem("bkdk_questions")) || [];
+            initialQs.forEach(q => {
+                addDoc(questionsCol, {
+                    senderName: q.senderName,
+                    text: q.text,
+                    createdAt: q.createdAt,
+                    answeredAt: q.answeredAt,
+                    answer: q.answer,
+                    likes: q.likes || [],
+                    comments: q.comments || [],
+                    isAnonymous: q.isAnonymous || false
+                });
+            });
         }
     });
 
@@ -86,26 +102,6 @@ if (window.FIREBASE_CONFIG && window.FIREBASE_CONFIG.apiKey) {
     });
 
     // 2. Sync Questions Collection
-    const questionsCol = collection(db, "bkdk_questions");
-    
-    // Seed database if questions collection is empty
-    getDocs(questionsCol).then((snap) => {
-        if (snap.empty) {
-            const initialQs = JSON.parse(localStorage.getItem("bkdk_questions")) || [];
-            initialQs.forEach(q => {
-                addDoc(questionsCol, {
-                    senderName: q.senderName,
-                    text: q.text,
-                    createdAt: q.createdAt,
-                    answeredAt: q.answeredAt,
-                    answer: q.answer,
-                    likes: q.likes || [],
-                    comments: q.comments || [],
-                    isAnonymous: q.isAnonymous || false
-                });
-            });
-        }
-    });
 
     let isInitialLoad = true;
     onSnapshot(questionsCol, (snapshot) => {
