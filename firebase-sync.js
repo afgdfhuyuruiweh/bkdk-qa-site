@@ -53,7 +53,7 @@ if (window.FIREBASE_CONFIG && window.FIREBASE_CONFIG.apiKey) {
             setDoc(ownerDocRef, initialOwner);
 
             // Seed database questions only on very first owner creation!
-            const initialQs = JSON.parse(localStorage.getItem("questions")) || [];
+            const initialQs = JSON.parse(localStorage.getItem("bkdk_questions")) || [];
             initialQs.forEach(q => {
                 addDoc(questionsCol, {
                     senderName: q.senderName,
@@ -110,7 +110,7 @@ if (window.FIREBASE_CONFIG && window.FIREBASE_CONFIG.apiKey) {
             list.push({ id: doc.id, ...doc.data() });
         });
         
-        localStorage.setItem("questions", JSON.stringify(list));
+        localStorage.setItem("bkdk_questions", JSON.stringify(list));
         
         // Handle desktop notifications for new incoming questions
         if (!isInitialLoad) {
