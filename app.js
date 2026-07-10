@@ -672,6 +672,21 @@ function renderDashboard() {
     const user = auth.currentUser;
     if (!user) return;
     
+    // Update dashboard sidebar user info
+    const dashSidebarName = document.getElementById('dash-sidebar-name');
+    if (dashSidebarName) dashSidebarName.textContent = user.displayName || 'Mod';
+    
+    const dashSidebarHandle = document.getElementById('dash-sidebar-handle');
+    if (dashSidebarHandle) dashSidebarHandle.textContent = `@${user.handle || 'user'}`;
+    
+    const dashSidebarAvatar = document.getElementById('dash-sidebar-avatar');
+    if (dashSidebarAvatar) dashSidebarAvatar.src = user.avatar || DEFAULT_AVATAR;
+    
+    const viewPublicBtn = document.getElementById('btn-view-public-profile');
+    if (viewPublicBtn) {
+        viewPublicBtn.href = `#u/${user.handle || 'user'}`;
+    }
+    
     // Update active tab styles
     document.querySelectorAll('.sidebar-menu button').forEach(btn => btn.classList.remove('active'));
     document.querySelectorAll('.dash-content-section').forEach(sec => sec.classList.remove('active'));
