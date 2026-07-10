@@ -11,6 +11,41 @@ document.documentElement.setAttribute('data-scheme', activeColorScheme);
 const DEFAULT_AVATAR = "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><defs><linearGradient id='bkdk-grad' x1='0%' y1='0%' x2='100%' y2='100%'><stop offset='0%' stop-color='%2300ffcc'/><stop offset='100%' stop-color='%23ff5e00'/></linearGradient></defs><circle cx='50' cy='50' r='50' fill='url(%23bkdk-grad)'/><text x='50' y='65' font-size='42' text-anchor='middle'>💥</text></svg>";
 const DEFAULT_HEADER = "default";
 
+// --- UTILITY: COMPRESS IMAGES CLIENT-SIDE TO PREVENT FIRESTORE 1MB DOCUMENT LIMIT EXCEEDED ---
+function compressImage(base64Str, maxWidth, maxHeight, quality = 0.75) {
+    return new Promise((resolve) => {
+        const img = new Image();
+        img.src = base64Str;
+        img.onload = () => {
+            let width = img.width;
+            let height = img.height;
+            
+            // Calculate new dimensions
+            if (width > maxWidth) {
+                height = Math.round((height * maxWidth) / width);
+                width = maxWidth;
+            }
+            if (height > maxHeight) {
+                width = Math.round((width * maxHeight) / height);
+                height = maxHeight;
+            }
+            
+            const canvas = document.createElement('canvas');
+            canvas.width = width;
+            canvas.height = height;
+            
+            const ctx = canvas.getContext('2d');
+            ctx.drawImage(img, 0, 0, width, height);
+            
+            // Export as compressed JPEG
+            resolve(canvas.toDataURL('image/jpeg', quality));
+        };
+        img.onerror = () => {
+            resolve(base64Str); // Fallback to original if load fails
+        };
+    });
+}
+
 // --- UTILITY: RENDER CONSISTENT IOS EMOJIS VIA TWEMOJI & APPLE EMOJI DATASOURCE ---
 function applyIosEmojis(target) {
     if (typeof twemoji === 'undefined') return;
@@ -1045,10 +1080,12 @@ function setupEventListeners() {
         const file = e.target.files[0];
         if (file) {
             const reader = new FileReader();
-            reader.onload = (event) => {
-                tempAvatarBase64 = event.target.result;
+            reader.onload = async (event) => {
+                const originalBase64 = event.target.result;
+                showToast("Processing & optimizing avatar...", "info");
+                tempAvatarBase64 = await compressImage(originalBase64, 250, 250, 0.8);
                 document.getElementById('preview-avatar-img').src = tempAvatarBase64;
-                showToast("Avatar image loaded!", "success");
+                showToast("Avatar image loaded & optimized!", "success");
             };
             reader.readAsDataURL(file);
         }
@@ -1064,10 +1101,12 @@ function setupEventListeners() {
         const file = e.target.files[0];
         if (file) {
             const reader = new FileReader();
-            reader.onload = (event) => {
-                tempHeaderBase64 = event.target.result;
+            reader.onload = async (event) => {
+                const originalBase64 = event.target.result;
+                showToast("Processing & optimizing header...", "info");
+                tempHeaderBase64 = await compressImage(originalBase64, 900, 300, 0.75);
                 applyHeaderBanner(document.getElementById('preview-header-img'), tempHeaderBase64);
-                showToast("Header banner image loaded!", "success");
+                showToast("Header banner image loaded & optimized!", "success");
             };
             reader.readAsDataURL(file);
         }
