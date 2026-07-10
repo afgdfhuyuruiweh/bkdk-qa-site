@@ -1,0 +1,1892 @@
+@import url('https://fonts.googleapis.com/css2?family=Bangers&family=Outfit:wght@300;400;500;600;700;800&display=swap');
+
+/* --- THEME DEFINITIONS --- */
+
+/* 1. Wonder Duo Theme (Teal & Orange Hybrid) */
+:root[data-theme="wonder-duo"] {
+    --bg-gradient: linear-gradient(135deg, #04100e 0%, #0c1a17 50%, #1b0f06 100%);
+    --glass-bg: #0c1c19;
+    --glass-border: rgba(0, 255, 183, 0.18);
+    --glass-shadow: rgba(0, 255, 183, 0.1);
+    --text-primary: #e6fcf8;
+    --text-secondary: #a0bcb7;
+    --accent-color: #ff6a00;
+    --accent-hover: #ff8533;
+    --accent-bg-glow: rgba(255, 106, 0, 0.45);
+    --accent-soft: rgba(0, 255, 183, 0.12);
+    --card-hover-border: rgba(0, 255, 183, 0.6);
+    --nav-bg: #04100e;
+    --input-bg: rgba(12, 28, 25, 0.6);
+    --input-focus-border: #00ffb7;
+    --success: #00ffb7;
+    --logo-color: #00ffb7;
+    --logo-accent: #ff6a00;
+    --font-heading: 'Outfit', sans-serif;
+    --box-shadow-card: 0 8px 32px 0 rgba(0, 0, 0, 0.4);
+    --border-radius-card: 20px;
+    --border-width-card: 1px;
+}
+
+/* 2. Dynamight Theme (Bakugo Katsuki - Explosive Orange & Black) */
+:root[data-theme="dynamight"] {
+    --bg-gradient: linear-gradient(135deg, #050505 0%, #121212 50%, #240c02 100%);
+    --glass-bg: #161616;
+    --glass-border: rgba(255, 94, 0, 0.25);
+    --glass-shadow: rgba(255, 94, 0, 0.15);
+    --text-primary: #ffebe6;
+    --text-secondary: #d1bba8;
+    --accent-color: #ff5e00;
+    --accent-hover: #ff7a1a;
+    --accent-bg-glow: rgba(255, 94, 0, 0.65);
+    --accent-soft: rgba(255, 94, 0, 0.15);
+    --card-hover-border: #ff5e00;
+    --nav-bg: #050505;
+    --input-bg: rgba(18, 18, 18, 0.65);
+    --input-focus-border: #ff5e00;
+    --success: #ffd700;
+    --logo-color: #ff5e00;
+    --logo-accent: #ffb700;
+    --font-heading: 'Outfit', sans-serif;
+    --box-shadow-card: 0 8px 32px 0 rgba(0, 0, 0, 0.5);
+    --border-radius-card: 20px;
+    --border-width-card: 1px;
+}
+
+/* 3. Deku Theme (Midoriya Izuku - Emerald Full Cowl) */
+:root[data-theme="deku"] {
+    --bg-gradient: linear-gradient(135deg, #020d0b 0%, #061d19 50%, #140406 100%);
+    --glass-bg: #081b17;
+    --glass-border: rgba(0, 230, 118, 0.22);
+    --glass-shadow: rgba(0, 230, 118, 0.18);
+    --text-primary: #e6fffb;
+    --text-secondary: #9cb2ad;
+    --accent-color: #00e676;
+    --accent-hover: #33ff99;
+    --accent-bg-glow: rgba(0, 230, 118, 0.55);
+    --accent-soft: rgba(0, 230, 118, 0.15);
+    --card-hover-border: #00e676;
+    --nav-bg: #020d0b;
+    --input-bg: rgba(8, 25, 21, 0.6);
+    --input-focus-border: #d9383a; /* Red shoe accent */
+    --success: #00e676;
+    --logo-color: #00e676;
+    --logo-accent: #d9383a;
+    --font-heading: 'Outfit', sans-serif;
+    --box-shadow-card: 0 8px 32px 0 rgba(0, 0, 0, 0.4);
+    --border-radius-card: 20px;
+    --border-width-card: 1px;
+}
+
+/* 4. Comic Grid Theme (Manga / Retro Halftone) */
+:root[data-theme="comic-grid"], :root[data-theme="deku-comic-grid"] {
+    --bg-gradient: #ffffff;
+    --glass-bg: #ffffff;
+    --glass-border: #121212;
+    --glass-shadow: none;
+    --text-primary: #121212;
+    --text-secondary: #444444;
+    --accent-color: #ff5e00;
+    --accent-hover: #00ffc4;
+    --accent-bg-glow: transparent;
+    --accent-soft: #f0f0f0;
+    --card-hover-border: #121212;
+    --nav-bg: #ffffff;
+    --input-bg: #ffffff;
+    --input-focus-border: #121212;
+    --success: #00e676;
+    --logo-color: #ff5e00;
+    --logo-accent: #00ffc4;
+    --font-heading: 'Bangers', cursive;
+    --box-shadow-card: 6px 6px 0px #121212;
+    --border-radius-card: 0px;
+    --border-width-card: 3px;
+}
+
+/* 5. Fantasy AU Theme (BkDk Dragon Knight & Barbarian) */
+:root[data-theme="fantasy-au"] {
+    --bg-gradient: linear-gradient(135deg, #151d16 0%, #1e1310 50%, #2f1d0b 100%);
+    --glass-bg: #1c1916;
+    --glass-border: rgba(212, 175, 55, 0.25);
+    --glass-shadow: rgba(212, 175, 55, 0.15);
+    --text-primary: #f5edd6;
+    --text-secondary: #c2b69a;
+    --accent-color: #d4af37; /* Royal Gold */
+    --accent-hover: #e5c158;
+    --accent-bg-glow: rgba(212, 175, 55, 0.6);
+    --accent-soft: rgba(30, 90, 40, 0.18); /* Soft Forest Green */
+    --card-hover-border: #d4af37;
+    --nav-bg: #151d16;
+    --input-bg: rgba(35, 30, 26, 0.7);
+    --input-focus-border: #c62828; /* Dragon Crimson */
+    --success: #d4af37;
+    --logo-color: #c62828; /* Red cloak */
+    --logo-accent: #1b5e20; /* Knight armor */
+    --font-heading: 'Outfit', sans-serif;
+    --box-shadow-card: 0 8px 32px 0 rgba(0, 0, 0, 0.55);
+    --border-radius-card: 20px;
+    --border-width-card: 1px;
+}
+
+/* 6. Pro Heroes Theme (Sleek Modern Agency - Navy Steel, Bio Green & Cyber Orange) */
+:root[data-theme="pro-heroes"] {
+    --bg-gradient: linear-gradient(135deg, #090f1a 0%, #0d1b2e 50%, #150b24 100%);
+    --glass-bg: #0e1a2b;
+    --glass-border: rgba(0, 230, 118, 0.22);
+    --glass-shadow: rgba(0, 230, 118, 0.15);
+    --text-primary: #e3ecf8;
+    --text-secondary: #90a8c2;
+    --accent-color: #ff5500; /* Cyber Orange */
+    --accent-hover: #ff7733;
+    --accent-bg-glow: rgba(255, 85, 0, 0.6);
+    --accent-soft: rgba(0, 230, 118, 0.15); /* Bio Green */
+    --card-hover-border: #00e676;
+    --nav-bg: #090f1a;
+    --input-bg: rgba(14, 26, 43, 0.68);
+    --input-focus-border: #00e676;
+    --success: #00e676;
+    --logo-color: #ff5500;
+    --logo-accent: #00e676;
+    --font-heading: 'Outfit', sans-serif;
+    --box-shadow-card: 0 8px 32px 0 rgba(0, 0, 0, 0.45);
+    --border-radius-card: 20px;
+    --border-width-card: 1px;
+}
+
+/* --- BASE STYLES --- */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background: var(--bg-gradient);
+    color: var(--text-primary);
+    font-family: 'Outfit', sans-serif;
+    font-size: 15px;
+    line-height: 1.6;
+    min-height: 100vh;
+    padding-bottom: 60px;
+    position: relative;
+    overflow-x: hidden;
+    transition: background 0.3s ease, color 0.3s ease;
+}
+
+/* Halftone Background Pattern for Comic Grid */
+body::before {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: -2;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+:root[data-theme="comic-grid"] body::before, :root[data-theme="deku-comic-grid"] body::before {
+    opacity: 1;
+    background-image: radial-gradient(rgba(0, 0, 0, 0.12) 15%, transparent 16%), 
+                      radial-gradient(rgba(0, 0, 0, 0.12) 15%, transparent 16%);
+    background-size: 18px 18px;
+    background-position: 0 0, 9px 9px;
+}
+
+/* Floating Particles Canvas */
+#canvas-particles {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    pointer-events: none;
+}
+
+:root[data-theme="comic-grid"] #canvas-particles, :root[data-theme="deku-comic-grid"] #canvas-particles {
+    display: none; /* Hide particles in retro comic mode */
+}
+
+a {
+    color: var(--accent-color);
+    text-decoration: none;
+    font-weight: 600;
+    transition: color 0.2s ease;
+}
+
+a:hover {
+    color: var(--accent-hover);
+    text-decoration: underline;
+}
+
+/* --- LAYOUT WRAPPERS --- */
+.app-header {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: var(--nav-bg);
+    border-bottom: var(--border-width-card) solid var(--glass-border);
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    transition: background 0.3s ease, border-color 0.3s ease;
+}
+
+:root[data-theme="comic-grid"] .app-header, :root[data-theme="deku-comic-grid"] .app-header {
+    border-bottom: 3px solid #121212;
+}
+
+.nav-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 16px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo-link {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-family: var(--font-heading);
+    font-size: 1.6rem;
+    font-weight: 800;
+    color: var(--text-primary);
+    text-decoration: none !important;
+    letter-spacing: 0.5px;
+}
+
+:root[data-theme="comic-grid"] .logo-link, :root[data-theme="deku-comic-grid"] .logo-link {
+    font-size: 2.2rem;
+    letter-spacing: 1.5px;
+}
+
+.logo-logo {
+    width: 32px;
+    height: 32px;
+    color: var(--logo-color);
+    fill: currentColor;
+    transition: transform 0.3s ease;
+}
+
+.logo-link:hover .logo-logo {
+    transform: rotate(15deg) scale(1.1);
+}
+
+.nav-links {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.app-main {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 24px 20px;
+    position: relative;
+    z-index: 2;
+}
+
+/* --- GLASS PANELS --- */
+.glass-panel {
+    background: var(--glass-bg);
+    border: var(--border-width-card) solid var(--glass-border);
+    box-shadow: var(--glass-shadow) 0px 8px 32px 0px, var(--box-shadow-card);
+    border-radius: var(--border-radius-card);
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), 
+                box-shadow 0.3s ease, 
+                border-color 0.3s ease, 
+                background 0.3s ease;
+}
+
+.glass-panel:hover {
+    border-color: var(--card-hover-border);
+}
+
+:root[data-theme="comic-grid"] .glass-panel, :root[data-theme="deku-comic-grid"] .glass-panel {
+    border: 3px solid #121212;
+    box-shadow: 6px 6px 0px #121212;
+    border-radius: 0;
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+}
+
+:root[data-theme="comic-grid"] .glass-panel:hover, :root[data-theme="deku-comic-grid"] .glass-panel:hover {
+    transform: translate(-2px, -2px);
+    box-shadow: 8px 8px 0px #121212;
+}
+
+/* --- BUTTONS --- */
+.btn-primary, .btn-secondary, .btn-pill, .btn-sm {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    font-family: 'Outfit', sans-serif;
+    font-weight: 700;
+    border: none;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    outline: none;
+}
+
+.btn-primary {
+    background: var(--accent-color);
+    color: #ffffff;
+    padding: 12px 28px;
+    border-radius: 30px;
+    box-shadow: 0 4px 14px 0 var(--accent-bg-glow);
+}
+
+.btn-primary:hover {
+    background: var(--accent-hover);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px 0 var(--accent-bg-glow);
+}
+
+.btn-primary:active {
+    transform: translateY(0);
+}
+
+.btn-secondary {
+    background: var(--input-bg);
+    color: var(--text-primary);
+    border: var(--border-width-card) solid var(--glass-border);
+    padding: 12px 28px;
+    border-radius: 30px;
+}
+
+.btn-secondary:hover {
+    background: var(--accent-soft);
+    border-color: var(--accent-color);
+    transform: translateY(-2px);
+}
+
+.btn-sm {
+    padding: 8px 18px;
+    font-size: 0.85rem;
+    border-radius: 20px;
+}
+
+/* Comic Grid Theme Button Overrides */
+:root[data-theme="comic-grid"] .btn-primary, :root[data-theme="deku-comic-grid"] .btn-primary {
+    background: var(--accent-color);
+    color: #ffffff;
+    border: 3px solid #121212;
+    box-shadow: 4px 4px 0px #121212;
+    border-radius: 0;
+}
+
+:root[data-theme="comic-grid"] .btn-primary:hover, :root[data-theme="deku-comic-grid"] .btn-primary:hover {
+    background: var(--accent-hover);
+    color: #121212;
+    transform: translate(-2px, -2px);
+    box-shadow: 6px 6px 0px #121212;
+}
+
+:root[data-theme="comic-grid"] .btn-secondary, :root[data-theme="deku-comic-grid"] .btn-secondary {
+    background: #ffffff;
+    color: #121212;
+    border: 3px solid #121212;
+    box-shadow: 4px 4px 0px #121212;
+    border-radius: 0;
+}
+
+:root[data-theme="comic-grid"] .btn-secondary:hover, :root[data-theme="deku-comic-grid"] .btn-secondary:hover {
+    background: #f0f0f0;
+    transform: translate(-2px, -2px);
+    box-shadow: 6px 6px 0px #121212;
+}
+
+/* --- PAGE VIEWS --- */
+.page-view {
+    display: none;
+}
+
+.page-view.active {
+    display: block;
+}
+
+/* --- 0. LANDING VIEW --- */
+.landing-container {
+    max-width: 650px;
+    margin: 60px auto;
+    padding: 50px 40px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.landing-emoji-logo {
+    font-size: 3.5rem;
+    margin-bottom: 20px;
+    display: inline-block;
+    animation: pulseGlow 2s infinite ease-in-out;
+}
+
+.landing-welcome-title {
+    font-family: var(--font-heading);
+    font-size: 2.5rem;
+    font-weight: 800;
+    margin-bottom: 24px;
+    color: var(--text-primary);
+    letter-spacing: 0.5px;
+}
+
+:root[data-theme="comic-grid"] .landing-welcome-title, :root[data-theme="deku-comic-grid"] .landing-welcome-title {
+    font-size: 3.5rem;
+    letter-spacing: 2px;
+    text-shadow: 3px 3px 0 #00ffc4;
+}
+
+.landing-welcome-message {
+    font-size: 1.05rem;
+    line-height: 1.7;
+    margin-bottom: 35px;
+    color: var(--text-primary);
+    text-align: left;
+    background: transparent;
+    padding: 8px 0 8px 20px;
+    border: none;
+    border-left: 5px solid var(--accent-color);
+}
+
+:root[data-scheme="light"] .landing-welcome-message {
+    background: transparent;
+}
+
+:root[data-theme="comic-grid"] .landing-welcome-message, :root[data-theme="deku-comic-grid"] .landing-welcome-message {
+    background: #fcfcfc;
+    border: 3px solid #121212;
+    border-radius: 0;
+    color: #121212;
+    box-shadow: inset 4px 4px 0 rgba(0,0,0,0.05);
+}
+
+/* --- 1. PUBLIC PROFILE VIEW --- */
+.profile-banner-container {
+    width: 100%;
+    height: 150px;
+    border-radius: var(--border-radius-card) var(--border-radius-card) 0 0;
+    overflow: hidden;
+    position: relative;
+    border-bottom: var(--border-width-card) solid var(--glass-border);
+}
+
+:root[data-theme="comic-grid"] .profile-banner-container, :root[data-theme="deku-comic-grid"] .profile-banner-container {
+    border-bottom: 3px solid #121212;
+    border-radius: 0;
+    height: 130px;
+}
+
+.profile-banner {
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, var(--logo-color) 0%, var(--logo-accent) 100%);
+    opacity: 0.85;
+}
+
+:root[data-theme="comic-grid"] .profile-banner, :root[data-theme="deku-comic-grid"] .profile-banner {
+    background: repeating-linear-gradient(
+      45deg,
+      #ff5e00,
+      #ff5e00 10px,
+      #121212 10px,
+      #121212 20px
+    );
+    opacity: 1;
+}
+
+.public-profile-grid-container {
+    margin-top: 24px;
+}
+
+.public-profile-grid {
+    display: grid;
+    grid-template-columns: 280px 1fr;
+    gap: 24px;
+    align-items: start;
+}
+
+@media (max-width: 850px) {
+    .public-profile-grid {
+        grid-template-columns: 1fr;
+    }
+    .profile-sidebar-column {
+        position: relative;
+        top: 0;
+    }
+}
+
+.profile-sidebar-card {
+    padding: 24px;
+    text-align: center;
+    position: relative;
+}
+
+.avatar-square {
+    width: 110px;
+    height: 110px;
+    border-radius: 18px;
+    border: 3px solid var(--accent-color);
+    background: var(--glass-bg);
+    object-fit: cover;
+    margin: -70px auto 16px auto;
+    display: block;
+    position: relative;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+    transition: transform 0.3s ease;
+}
+
+.avatar-square:hover {
+    transform: scale(1.05) rotate(-3deg);
+}
+
+:root[data-theme="comic-grid"] .avatar-square, :root[data-theme="deku-comic-grid"] .avatar-square {
+    border: 3px solid #121212;
+    border-radius: 0;
+    box-shadow: 4px 4px 0 #121212;
+}
+
+.profile-sidebar-card h1 {
+    font-family: var(--font-heading);
+    font-size: 1.6rem;
+    font-weight: 800;
+    margin-bottom: 4px;
+    color: var(--text-primary);
+}
+
+:root[data-theme="comic-grid"] .profile-sidebar-card h1, :root[data-theme="deku-comic-grid"] .profile-sidebar-card h1 {
+    font-size: 2.2rem;
+    letter-spacing: 1px;
+}
+
+.profile-sidebar-card .handle {
+    font-size: 0.95rem;
+    color: var(--text-secondary);
+    font-weight: 500;
+    margin-bottom: 16px;
+}
+
+.sidebar-bio-details {
+    font-size: 0.9rem;
+    line-height: 1.6;
+    color: var(--text-secondary);
+    margin-bottom: 20px;
+    text-align: left;
+    white-space: pre-wrap;
+    background: var(--accent-soft);
+    padding: 12px 16px;
+    border-radius: 10px;
+    border: 1px solid var(--glass-border);
+}
+
+:root[data-theme="comic-grid"] .sidebar-bio-details, :root[data-theme="deku-comic-grid"] .sidebar-bio-details {
+    background: #ffffff;
+    border: 2px solid #121212;
+    border-radius: 0;
+    color: #121212;
+}
+
+.sidebar-link-row {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    margin-top: 12px;
+}
+
+/* Slogan Box */
+.slogan-box {
+    padding: 24px;
+    margin-bottom: 20px;
+    font-size: 1.1rem;
+    font-weight: 500;
+    line-height: 1.7;
+    white-space: pre-wrap;
+    border-left: 5px solid var(--accent-color);
+}
+
+:root[data-theme="comic-grid"] .slogan-box, :root[data-theme="deku-comic-grid"] .slogan-box {
+    background: #ffffff;
+    color: #121212;
+    border: 3px solid #121212;
+    border-radius: 0;
+    box-shadow: 6px 6px 0px #121212;
+}
+
+/* Ask Box */
+.ask-box {
+    padding: 24px;
+    margin-bottom: 20px;
+    transition: border-color 0.2s ease;
+}
+
+.ask-box:focus-within {
+    border-color: var(--accent-color);
+}
+
+.input-field {
+    width: 100%;
+    background: var(--input-bg);
+    border: 1px solid var(--glass-border);
+    color: var(--text-primary);
+    font-family: 'Outfit', sans-serif;
+    font-size: 1rem;
+    padding: 12px 16px;
+    border-radius: 12px;
+    outline: none;
+    transition: all 0.2s ease;
+    margin-bottom: 12px;
+}
+
+.input-field:focus {
+    border-color: var(--input-focus-border);
+    background: rgba(0, 0, 0, 0.3);
+}
+
+:root[data-theme="comic-grid"] .input-field, :root[data-theme="deku-comic-grid"] .input-field {
+    border: 2px solid #121212;
+    border-radius: 0;
+    color: #121212;
+    background: #ffffff;
+}
+
+:root[data-theme="comic-grid"] .input-field:focus, :root[data-theme="deku-comic-grid"] .input-field:focus {
+    background: #ffffff;
+    box-shadow: inset 2px 2px 0 rgba(0,0,0,0.1);
+}
+
+.checkbox-label {
+    user-select: none;
+    font-weight: 500;
+    transition: color 0.2s ease;
+}
+
+.checkbox-label:hover {
+    color: var(--text-primary);
+}
+
+/* Profile Tabs Bar */
+.profile-tabs-bar {
+    display: flex;
+    margin-bottom: 20px;
+    overflow: hidden;
+    padding: 4px !important;
+}
+
+.tab-item {
+    flex: 1;
+    padding: 12px 8px;
+    border: none;
+    background: transparent;
+    color: var(--text-secondary);
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    border-radius: 12px;
+    transition: all 0.2s ease;
+}
+
+.tab-item.active {
+    background: var(--accent-color);
+    color: #ffffff;
+    font-weight: 700;
+}
+
+.tab-badge {
+    background: var(--accent-soft);
+    color: var(--text-primary);
+    padding: 2px 8px;
+    border-radius: 10px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    transition: all 0.2s ease;
+}
+
+.tab-item.active .tab-badge {
+    background: rgba(255, 255, 255, 0.25);
+    color: #ffffff;
+}
+
+:root[data-theme="comic-grid"] .profile-tabs-bar, :root[data-theme="deku-comic-grid"] .profile-tabs-bar {
+    background: #ffffff;
+    border: 3px solid #121212 !important;
+    border-radius: 0;
+    padding: 0 !important;
+}
+
+:root[data-theme="comic-grid"] .tab-item, :root[data-theme="deku-comic-grid"] .tab-item {
+    border-radius: 0;
+    font-family: 'Bangers', cursive;
+    font-size: 1.3rem;
+    letter-spacing: 1px;
+}
+
+:root[data-theme="comic-grid"] .tab-item.active, :root[data-theme="deku-comic-grid"] .tab-item.active {
+    background: #121212;
+    color: #ffffff;
+}
+
+/* Q&A Cards Feed */
+.qa-card {
+    padding: 24px;
+    margin-bottom: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    animation: cardSlideIn 0.4s ease forwards;
+}
+
+.qa-card-question {
+    background: var(--accent-soft);
+    padding: 16px;
+    border-radius: 12px;
+    border-left: 4px solid var(--accent-color);
+    position: relative;
+}
+
+:root[data-theme="comic-grid"] .qa-card-question, :root[data-theme="deku-comic-grid"] .qa-card-question {
+    background: #f7f7f7;
+    border: 2px solid #121212;
+    border-radius: 0;
+    color: #121212;
+}
+
+.qa-question-header {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+    margin-bottom: 8px;
+    font-weight: 600;
+}
+
+.qa-question-text {
+    font-size: 1.05rem;
+    font-weight: 600;
+    word-break: break-word;
+}
+
+.qa-card-answer {
+    display: flex;
+    gap: 16px;
+    align-items: flex-start;
+}
+
+.qa-answer-avatar {
+    width: 44px;
+    height: 44px;
+    border-radius: 10px;
+    border: 2px solid var(--accent-color);
+    object-fit: cover;
+}
+
+:root[data-theme="comic-grid"] .qa-answer-avatar, :root[data-theme="deku-comic-grid"] .qa-answer-avatar {
+    border: 2px solid #121212;
+    border-radius: 0;
+}
+
+.qa-answer-main {
+    flex: 1;
+}
+
+.qa-answer-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 6px;
+}
+
+.qa-answerer-name {
+    font-weight: 700;
+    font-size: 0.95rem;
+}
+
+.qa-answer-time {
+    font-size: 0.75rem;
+    color: var(--text-secondary);
+}
+
+.qa-answer-text {
+    font-size: 1rem;
+    line-height: 1.6;
+    word-break: break-word;
+    white-space: pre-wrap;
+}
+
+/* Card Actions (Like & Comment buttons) */
+.qa-card-actions {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    border-top: 1px solid var(--glass-border);
+    padding-top: 12px;
+    margin-top: 4px;
+}
+
+.action-btn {
+    background: none;
+    border: none;
+    color: var(--text-secondary);
+    cursor: pointer;
+    font-size: 0.85rem;
+    font-weight: 600;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    transition: all 0.2s ease;
+}
+
+.action-btn:hover {
+    color: var(--accent-color);
+}
+
+.action-btn.liked {
+    color: #e53935;
+}
+
+.action-btn.liked svg {
+    fill: #e53935;
+    stroke: #e53935;
+}
+
+/* Comments Section in Card */
+.comments-section {
+    border-top: 1px solid var(--glass-border);
+    padding-top: 16px;
+    margin-top: 4px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.comment-row {
+    background: rgba(0, 0, 0, 0.1);
+    padding: 10px 14px;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    position: relative;
+    border-left: 2px solid var(--glass-border);
+}
+
+:root[data-theme="comic-grid"] .comment-row, :root[data-theme="deku-comic-grid"] .comment-row {
+    background: #fbfbfb;
+    border: 2px solid #121212;
+    border-radius: 0;
+}
+
+.comment-header {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.75rem;
+    color: var(--text-secondary);
+    margin-bottom: 4px;
+    font-weight: 600;
+}
+
+.comment-text {
+    word-break: break-word;
+}
+
+.comment-input-row {
+    display: flex;
+    gap: 8px;
+    margin-top: 8px;
+}
+
+/* --- 2. OWNER DASHBOARD VIEW --- */
+.dashboard-grid {
+    display: grid;
+    grid-template-columns: 280px 1fr;
+    gap: 24px;
+    align-items: start;
+}
+
+@media (max-width: 850px) {
+    .dashboard-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+.profile-summary {
+    position: relative;
+    padding: 20px;
+    text-align: center;
+    overflow: hidden;
+}
+
+.profile-summary .avatar {
+    width: 80px;
+    height: 80px;
+    border-radius: 15px;
+    border: 3px solid var(--accent-color);
+    background: var(--glass-bg);
+    margin: -40px auto 12px auto;
+    display: block;
+    position: relative;
+    object-fit: cover;
+}
+
+:root[data-theme="comic-grid"] .profile-summary .avatar, :root[data-theme="deku-comic-grid"] .profile-summary .avatar {
+    border: 2px solid #121212;
+    border-radius: 0;
+}
+
+.profile-stats {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 16px;
+    border-top: 1px solid var(--glass-border);
+    padding-top: 16px;
+}
+
+.stat-box {
+    display: flex;
+    flex-direction: column;
+}
+
+.stat-box .val {
+    font-size: 1.25rem;
+    font-weight: 800;
+}
+
+.stat-box .lbl {
+    font-size: 0.75rem;
+    color: var(--text-secondary);
+}
+
+.sidebar-menu {
+    margin-top: 16px;
+    display: flex;
+    flex-direction: column;
+    padding: 8px !important;
+}
+
+.sidebar-menu button {
+    background: none;
+    border: none;
+    color: var(--text-secondary);
+    padding: 12px 16px;
+    text-align: left;
+    width: 100%;
+    cursor: pointer;
+    font-family: 'Outfit', sans-serif;
+    font-size: 0.95rem;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    border-radius: 12px;
+    transition: all 0.2s ease;
+}
+
+.sidebar-menu button svg {
+    width: 20px;
+    height: 20px;
+    fill: currentColor;
+}
+
+.sidebar-menu button:hover {
+    color: var(--accent-color);
+    background: var(--accent-soft);
+}
+
+.sidebar-menu button.active {
+    background: var(--accent-color);
+    color: #ffffff;
+}
+
+.sidebar-menu button .badge-count {
+    background: #d9383a;
+    color: #ffffff;
+    padding: 2px 6px;
+    border-radius: 8px;
+    font-size: 0.75rem;
+    margin-left: auto;
+    font-weight: 700;
+}
+
+:root[data-theme="comic-grid"] .sidebar-menu, :root[data-theme="deku-comic-grid"] .sidebar-menu {
+    border: 3px solid #121212 !important;
+    border-radius: 0;
+    background: #ffffff;
+    padding: 0 !important;
+}
+
+:root[data-theme="comic-grid"] .sidebar-menu button, :root[data-theme="deku-comic-grid"] .sidebar-menu button {
+    border-radius: 0;
+    font-family: 'Bangers', cursive;
+    font-size: 1.3rem;
+    letter-spacing: 1px;
+}
+
+:root[data-theme="comic-grid"] .sidebar-menu button.active, :root[data-theme="deku-comic-grid"] .sidebar-menu button.active {
+    background: #121212;
+    color: #ffffff;
+}
+
+.dash-content-section {
+    display: none;
+}
+
+.dash-content-section.active {
+    display: block;
+}
+
+.section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    border-bottom: 1px solid var(--glass-border);
+    padding-bottom: 12px;
+}
+
+.section-header h2 {
+    font-family: var(--font-heading);
+    font-size: 1.6rem;
+    font-weight: 800;
+}
+
+:root[data-theme="comic-grid"] .section-header h2, :root[data-theme="deku-comic-grid"] .section-header h2 {
+    font-size: 2.2rem;
+    letter-spacing: 1px;
+}
+
+.dashboard-content .card {
+    padding: 20px;
+    margin-bottom: 16px;
+    position: relative;
+}
+
+/* Dashboard Q&As item style */
+.inbox-card-text {
+    font-size: 1.05rem;
+    font-weight: 600;
+    margin-bottom: 12px;
+}
+
+.inbox-card-meta {
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+    margin-bottom: 16px;
+}
+
+.inbox-actions {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+/* Answer textarea trigger panel */
+.answer-textarea-panel {
+    margin-top: 16px;
+    border-top: 1px solid var(--glass-border);
+    padding-top: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+/* File Upload Styles */
+.file-input-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-top: 6px;
+    flex-wrap: wrap;
+}
+
+.image-preview-circle {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    border: 2px solid var(--accent-color);
+    object-fit: cover;
+    background: #000;
+}
+
+:root[data-theme="comic-grid"] .image-preview-circle, :root[data-theme="deku-comic-grid"] .image-preview-circle {
+    border: 2px solid #121212;
+    border-radius: 0;
+}
+
+.image-preview-banner {
+    width: 120px;
+    height: 60px;
+    border-radius: 8px;
+    border: 2px solid var(--glass-border);
+    background-size: cover;
+    background-position: center;
+    background-color: var(--accent-soft);
+}
+
+:root[data-theme="comic-grid"] .image-preview-banner, :root[data-theme="deku-comic-grid"] .image-preview-banner {
+    border: 2px solid #121212;
+    border-radius: 0;
+}
+
+.file-input-label {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--input-bg);
+    border: var(--border-width-card) solid var(--glass-border);
+    color: var(--text-primary);
+    padding: 8px 16px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.file-input-label:hover {
+    background: var(--accent-soft);
+    border-color: var(--accent-color);
+}
+
+:root[data-theme="comic-grid"] .file-input-label, :root[data-theme="deku-comic-grid"] .file-input-label {
+    border: 3px solid #121212;
+    border-radius: 0;
+    background: #ffffff;
+    color: #121212;
+    box-shadow: 2px 2px 0px #121212;
+}
+
+:root[data-theme="comic-grid"] .file-input-label:hover, :root[data-theme="deku-comic-grid"] .file-input-label:hover {
+    background: #f0f0f0;
+    transform: translate(-1px, -1px);
+    box-shadow: 3px 3px 0px #121212;
+}
+
+/* Settings Forms */
+.form-group {
+    margin-bottom: 16px;
+}
+
+.form-group label {
+    display: block;
+    font-weight: 700;
+    margin-bottom: 6px;
+    font-size: 0.9rem;
+}
+
+.form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+}
+
+@media (max-width: 600px) {
+    .form-row {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Theme Options Picker Grid */
+.theme-selector-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+    gap: 12px;
+    margin-top: 10px;
+}
+
+.theme-card {
+    border: 2px solid var(--glass-border);
+    border-radius: 12px;
+    padding: 16px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    background: rgba(255, 255, 255, 0.03);
+}
+
+.theme-card:hover {
+    border-color: var(--accent-color);
+}
+
+.theme-card.active {
+    border-color: var(--accent-color);
+    background: var(--accent-soft);
+    box-shadow: 0 0 10px var(--accent-bg-glow);
+}
+
+.theme-preview-colors {
+    display: flex;
+    justify-content: center;
+    gap: 6px;
+    margin-top: 10px;
+}
+
+.theme-preview-dot {
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+:root[data-theme="comic-grid"] .theme-card, :root[data-theme="deku-comic-grid"] .theme-card {
+    border: 2px solid #121212;
+    border-radius: 0;
+    background: #ffffff;
+    color: #121212;
+}
+
+:root[data-theme="comic-grid"] .theme-card.active, :root[data-theme="deku-comic-grid"] .theme-card.active {
+    background: #f0f0f0;
+    border-color: var(--accent-color);
+}
+
+/* --- TOAST MESSAGES --- */
+.toast-container {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    z-index: 1000;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    pointer-events: none;
+}
+
+.toast {
+    background: var(--glass-bg);
+    border: 1px solid var(--accent-color);
+    color: var(--text-primary);
+    padding: 12px 24px;
+    border-radius: 10px;
+    font-weight: 700;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    animation: toastSlideIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+:root[data-theme="comic-grid"] .toast, :root[data-theme="deku-comic-grid"] .toast {
+    background: #ffffff;
+    border: 3px solid #121212;
+    color: #121212;
+    box-shadow: 4px 4px 0px #121212;
+    border-radius: 0;
+}
+
+/* --- RENTRY CUSTOM SYNTAX PARSING STYLES --- */
+.md-center {
+    text-align: center;
+    margin: 8px 0;
+}
+
+.md-right {
+    text-align: right;
+    margin: 8px 0;
+}
+
+.md-center-inline {
+    display: block;
+    text-align: center;
+    width: 100%;
+}
+
+.spoiler {
+    background-color: var(--text-secondary);
+    color: var(--text-secondary);
+    cursor: pointer;
+    border-radius: 4px;
+    padding: 1px 6px;
+    user-select: none;
+    transition: background 0.15s ease;
+}
+
+.spoiler.revealed {
+    background-color: rgba(255, 255, 255, 0.1);
+    color: var(--text-primary);
+    user-select: text;
+}
+
+:root[data-theme="comic-grid"] .spoiler.revealed, :root[data-theme="deku-comic-grid"] .spoiler.revealed {
+    background-color: #f0f0f0;
+    color: #121212;
+}
+
+/* --- ANIMATIONS --- */
+@keyframes pulseGlow {
+    0%, 100% {
+        transform: scale(1);
+        filter: drop-shadow(0 0 5px var(--accent-bg-glow));
+    }
+    50% {
+        transform: scale(1.06);
+        filter: drop-shadow(0 0 15px var(--accent-bg-glow));
+    }
+}
+
+@keyframes toastSlideIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px) scale(0.9);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+@keyframes cardSlideIn {
+    from {
+        opacity: 0;
+        transform: translateY(16px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Card Dropdown Menu */
+.card-options-dropdown {
+    position: absolute;
+    z-index: 10;
+}
+.is-question .card-options-dropdown {
+    top: 33px;
+    right: 33px;
+}
+.is-post .card-options-dropdown {
+    top: 18px;
+    right: 20px;
+}
+
+.dropdown-trigger-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: var(--text-secondary);
+    padding: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    transition: background 0.2s ease, color 0.2s ease;
+}
+
+.dropdown-trigger-btn:hover {
+    background: var(--accent-soft);
+    color: var(--accent-color);
+}
+
+:root[data-theme="comic-grid"] .dropdown-trigger-btn, :root[data-theme="deku-comic-grid"] .dropdown-trigger-btn {
+    border-radius: 0;
+    border: 2px solid transparent;
+}
+
+:root[data-theme="comic-grid"] .dropdown-trigger-btn:hover, :root[data-theme="deku-comic-grid"] .dropdown-trigger-btn:hover {
+    border-color: #121212;
+    background: #f0f0f0;
+}
+
+.dropdown-menu {
+    display: none;
+    position: absolute;
+    right: 0;
+    top: 36px;
+    width: 140px;
+    padding: 6px !important;
+    background: var(--glass-bg);
+    border: var(--border-width-card) solid var(--glass-border);
+    border-radius: 12px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    animation: slideDown 0.2s ease;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.dropdown-menu.active {
+    display: flex;
+}
+
+:root[data-theme="comic-grid"] .dropdown-menu, :root[data-theme="deku-comic-grid"] .dropdown-menu {
+    border: 3px solid #121212;
+    border-radius: 0;
+    background: #ffffff;
+    box-shadow: 4px 4px 0px #121212;
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+}
+
+.dropdown-item {
+    background: none;
+    border: none;
+    color: var(--text-primary);
+    padding: 8px 12px;
+    text-align: left;
+    width: 100%;
+    font-size: 0.85rem;
+    font-weight: 600;
+    cursor: pointer;
+    border-radius: 8px;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.dropdown-item:hover {
+    background: var(--accent-soft);
+    color: var(--accent-color);
+}
+
+.dropdown-item.delete {
+    color: #d9383a;
+}
+
+.dropdown-item.delete:hover {
+    background: rgba(217, 56, 58, 0.12);
+    color: #e53935;
+}
+
+:root[data-theme="comic-grid"] .dropdown-item, :root[data-theme="deku-comic-grid"] .dropdown-item {
+    border-radius: 0;
+    color: #121212;
+}
+
+:root[data-theme="comic-grid"] .dropdown-item:hover, :root[data-theme="deku-comic-grid"] .dropdown-item:hover {
+    background: #121212;
+    color: #ffffff;
+}
+
+:root[data-theme="comic-grid"] .dropdown-item.delete, :root[data-theme="deku-comic-grid"] .dropdown-item.delete {
+    color: #d9383a;
+}
+
+:root[data-theme="comic-grid"] .dropdown-item.delete:hover, :root[data-theme="deku-comic-grid"] .dropdown-item.delete:hover {
+    background: #d9383a;
+    color: #ffffff;
+}
+
+/* Quoted Card Styles */
+.quoted-card {
+    background: rgba(0, 0, 0, 0.05);
+    border-left: 4px solid var(--accent-color);
+    padding: 12px 14px;
+    border-radius: 8px;
+    margin: 8px 0;
+    font-size: 0.85rem;
+    text-align: left;
+    cursor: pointer;
+    border: 1px solid var(--glass-border);
+    border-left-width: 4px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    transition: all 0.2s ease;
+}
+
+.quoted-card:hover {
+    background: rgba(0, 0, 0, 0.08);
+    border-color: var(--accent-color);
+}
+
+:root[data-theme="comic-grid"] .quoted-card, :root[data-theme="deku-comic-grid"] .quoted-card {
+    background: #ffffff;
+    border: 2px solid #121212;
+    border-left-width: 6px;
+    border-radius: 0;
+    color: #121212;
+    box-shadow: 2px 2px 0 #121212;
+}
+
+:root[data-theme="comic-grid"] .quoted-card:hover, :root[data-theme="deku-comic-grid"] .quoted-card:hover {
+    background: #fbfbfb;
+    transform: translate(-1px, -1px);
+    box-shadow: 3px 3px 0 #121212;
+}
+
+
+/* --- DEKU COMIC GRID CUSTOM VARIABLES & OVERRIDES --- */
+:root[data-theme="deku-comic-grid"] {
+    --bg-gradient: #ffffff;
+    --glass-bg: #ffffff;
+    --glass-border: #121212;
+    --glass-shadow: none;
+    --text-primary: #121212;
+    --text-secondary: #444444;
+    --accent-color: #00b087; /* High-contrast Deku Emerald Green */
+    --accent-hover: #d9383a; /* Red shoe highlight */
+    --accent-bg-glow: transparent;
+    --accent-soft: #e0f2f1; /* Soft green */
+    --card-hover-border: #121212;
+    --nav-bg: #ffffff;
+    --input-bg: #ffffff;
+    --input-focus-border: #121212;
+    --success: #00b087;
+    --logo-color: #00b087;
+    --logo-accent: #d9383a;
+    --font-heading: 'Bangers', cursive;
+    --box-shadow-card: 6px 6px 0px #121212;
+    --border-radius-card: 0px;
+    --border-width-card: 3px;
+}
+
+:root[data-theme="deku-comic-grid"] body::before {
+    background-image: radial-gradient(rgba(0, 176, 135, 0.12) 15%, transparent 16%), 
+                      radial-gradient(rgba(0, 176, 135, 0.12) 15%, transparent 16%);
+}
+
+/* 8. Cozy Winter Costumes Theme (Icy Teal, Snow White, Katsuki Orange) */
+:root[data-theme="winter-gear"] {
+    --bg-gradient: linear-gradient(135deg, #0e1e24 0%, #152930 50%, #291a10 100%);
+    --glass-bg: #122128;
+    --glass-border: rgba(178, 223, 219, 0.22);
+    --glass-shadow: rgba(178, 223, 219, 0.15);
+    --text-primary: #eef8f8;
+    --text-secondary: #9ab6be;
+    --accent-color: #ff6f00; /* Grenade Orange */
+    --accent-hover: #ff8f33;
+    --accent-bg-glow: rgba(255, 111, 0, 0.65);
+    --accent-soft: rgba(178, 223, 219, 0.15);
+    --card-hover-border: #b2dfdb;
+    --nav-bg: #0e1e24;
+    --input-bg: rgba(18, 33, 40, 0.65);
+    --input-focus-border: #ff6f00;
+    --success: #b2dfdb;
+    --logo-color: #ff6f00;
+    --logo-accent: #b2dfdb;
+    --font-heading: 'Outfit', sans-serif;
+    --box-shadow-card: 0 8px 32px 0 rgba(0, 0, 0, 0.45);
+    --border-radius-card: 20px;
+    --border-width-card: 1px;
+}
+
+/* 9. U.A. Gym Uniform Theme (Deep Athletic Blue, White, Crimson Red) */
+:root[data-theme="ua-gym"] {
+    --bg-gradient: linear-gradient(135deg, #061124 0%, #0d2142 50%, #1d070b 100%);
+    --glass-bg: #0d2142;
+    --glass-border: rgba(255, 255, 255, 0.18);
+    --glass-shadow: rgba(13, 71, 161, 0.18);
+    --text-primary: #ffffff;
+    --text-secondary: #a5b7d6;
+    --accent-color: #d32f2f; /* Athletic Red */
+    --accent-hover: #ef5350;
+    --accent-bg-glow: rgba(211, 47, 47, 0.65);
+    --accent-soft: rgba(255, 255, 255, 0.12);
+    --card-hover-border: #ffffff;
+    --nav-bg: #061124;
+    --input-bg: rgba(13, 33, 66, 0.65);
+    --input-focus-border: #ffffff;
+    --success: #00ffc4;
+    --logo-color: #d32f2f;
+    --logo-accent: #ffffff;
+    --font-heading: 'Outfit', sans-serif;
+    --box-shadow-card: 0 8px 32px 0 rgba(0, 0, 0, 0.5);
+    --border-radius-card: 20px;
+    --border-width-card: 1px;
+}
+
+/* 10. Childhood Origin Theme (Forest Green, Cardboard Orange) */
+:root[data-theme="origin-childhood"] {
+    --bg-gradient: linear-gradient(135deg, #091a0c 0%, #17150c 50%, #241405 100%);
+    --glass-bg: #161c14;
+    --glass-border: rgba(255, 143, 0, 0.2);
+    --glass-shadow: rgba(255, 143, 0, 0.12);
+    --text-primary: #f5fcf5;
+    --text-secondary: #c5d6c2;
+    --accent-color: #ff8f00; /* Cardboard/Sunset Gold */
+    --accent-hover: #ffb300;
+    --accent-bg-glow: rgba(255, 143, 0, 0.6);
+    --accent-soft: rgba(46, 125, 50, 0.15); /* Forest Green */
+    --card-hover-border: #ff8f00;
+    --nav-bg: #091a0c;
+    --input-bg: rgba(22, 28, 20, 0.68);
+    --input-focus-border: #2e7d32;
+    --success: #2e7d32;
+    --logo-color: #ff8f00;
+    --logo-accent: #2e7d32;
+    --font-heading: 'Outfit', sans-serif;
+    --box-shadow-card: 0 8px 32px 0 rgba(0, 0, 0, 0.55);
+    --border-radius-card: 20px;
+    --border-width-card: 1px;
+}
+
+/* 11. Vigilante / Dark Hero Theme (Midnight Charcoal, Toxic Neon Green, Blood Crimson) */
+:root[data-theme="vigilante"] {
+    --bg-gradient: linear-gradient(135deg, #07070a 0%, #0d0e12 50%, #200408 100%);
+    --glass-bg: #0d0e12;
+    --glass-border: rgba(0, 230, 118, 0.2);
+    --glass-shadow: rgba(0, 230, 118, 0.12);
+    --text-primary: #f2f5f3;
+    --text-secondary: #9ea8a3;
+    --accent-color: #c62828; /* Blood Crimson */
+    --accent-hover: #e53935;
+    --accent-bg-glow: rgba(198, 40, 40, 0.65);
+    --accent-soft: rgba(0, 230, 118, 0.15); /* Neon Green */
+    --card-hover-border: #00e676;
+    --nav-bg: #07070a;
+    --input-bg: rgba(13, 14, 18, 0.72);
+    --input-focus-border: #00e676;
+    --success: #00e676;
+    --logo-color: #c62828;
+    --logo-accent: #00e676;
+    --font-heading: 'Outfit', sans-serif;
+    --box-shadow-card: 0 8px 32px 0 rgba(0, 0, 0, 0.6);
+    --border-radius-card: 20px;
+    --border-width-card: 1px;
+}
+
+/* --- LIGHT MODE SCHEME OVERRIDES --- */
+
+/* 1. Wonder Duo Light Mode */
+:root[data-theme="wonder-duo"][data-scheme="light"] {
+    --bg-gradient: linear-gradient(135deg, #e0f2f1 0%, #f7ebe1 100%);
+    --glass-bg: #ffffff;
+    --glass-border: rgba(0, 150, 110, 0.18);
+    --glass-shadow: rgba(0, 150, 110, 0.08);
+    --text-primary: #042621;
+    --text-secondary: #5a7570;
+    --accent-color: #e65c00;
+    --accent-hover: #ff751a;
+    --accent-bg-glow: rgba(230, 92, 0, 0.25);
+    --accent-soft: rgba(0, 200, 150, 0.1);
+    --card-hover-border: rgba(0, 150, 110, 0.5);
+    --nav-bg: #ffffff;
+    --input-bg: rgba(255, 255, 255, 0.8);
+    --input-focus-border: #00c896;
+    --box-shadow-card: 0 8px 32px 0 rgba(0, 70, 50, 0.1);
+}
+
+/* 2. Dynamight Light Mode */
+:root[data-theme="dynamight"][data-scheme="light"] {
+    --bg-gradient: linear-gradient(135deg, #faf6f0 0%, #fde4d0 100%);
+    --glass-bg: #ffffff;
+    --glass-border: rgba(255, 94, 0, 0.22);
+    --glass-shadow: rgba(255, 94, 0, 0.08);
+    --text-primary: #3d1a0b;
+    --text-secondary: #7e6353;
+    --accent-color: #ff5e00;
+    --accent-hover: #ff7a1a;
+    --accent-bg-glow: rgba(255, 94, 0, 0.35);
+    --accent-soft: rgba(255, 94, 0, 0.08);
+    --card-hover-border: #ff5e00;
+    --nav-bg: #ffffff;
+    --input-bg: #ffffff;
+    --input-focus-border: #ff5e00;
+    --box-shadow-card: 0 8px 32px 0 rgba(100, 40, 0, 0.08);
+}
+
+/* 3. Deku Light Mode */
+:root[data-theme="deku"][data-scheme="light"] {
+    --bg-gradient: linear-gradient(135deg, #eaf6f3 0%, #faeaea 100%);
+    --glass-bg: #ffffff;
+    --glass-border: rgba(0, 200, 118, 0.2);
+    --glass-shadow: rgba(0, 200, 118, 0.08);
+    --text-primary: #072e25;
+    --text-secondary: #5a756f;
+    --accent-color: #00a86b;
+    --accent-hover: #00e676;
+    --accent-bg-glow: rgba(0, 168, 107, 0.25);
+    --accent-soft: rgba(0, 168, 107, 0.08);
+    --card-hover-border: #00a86b;
+    --nav-bg: #ffffff;
+    --input-bg: #ffffff;
+    --input-focus-border: #d9383a;
+    --box-shadow-card: 0 8px 32px 0 rgba(0, 70, 50, 0.08);
+}
+
+/* 4. Comic Grid / Deku Comic Grid Dark Mode (Inverted Manga Mode) */
+:root[data-theme="comic-grid"][data-scheme="dark"] body::before,
+:root[data-theme="deku-comic-grid"][data-scheme="dark"] body::before {
+    background-image: radial-gradient(rgba(255, 255, 255, 0.12) 15%, transparent 16%), 
+                      radial-gradient(rgba(255, 255, 255, 0.12) 15%, transparent 16%);
+}
+
+:root[data-theme="comic-grid"][data-scheme="dark"] {
+    --bg-gradient: #121212;
+    --glass-bg: #1c1c1c;
+    --glass-border: #ffffff;
+    --glass-shadow: none;
+    --text-primary: #ffffff;
+    --text-secondary: #cccccc;
+    --accent-color: #ff5e00;
+    --accent-hover: #00ffc4;
+    --card-hover-border: #ffffff;
+    --nav-bg: #121212;
+    --input-bg: #222222;
+    --input-focus-border: #ffffff;
+    --box-shadow-card: 6px 6px 0px #ffffff;
+}
+
+:root[data-theme="deku-comic-grid"][data-scheme="dark"] {
+    --bg-gradient: #121212;
+    --glass-bg: #1c1c1c;
+    --glass-border: #ffffff;
+    --glass-shadow: none;
+    --text-primary: #ffffff;
+    --text-secondary: #cccccc;
+    --accent-color: #00e676;
+    --accent-hover: #ff5e00;
+    --card-hover-border: #ffffff;
+    --nav-bg: #121212;
+    --input-bg: #222222;
+    --input-focus-border: #ffffff;
+    --box-shadow-card: 6px 6px 0px #ffffff;
+}
+
+/* 5. Fantasy AU Light Mode */
+:root[data-theme="fantasy-au"][data-scheme="light"] {
+    --bg-gradient: linear-gradient(135deg, #faf7f0 0%, #f3ecd8 100%);
+    --glass-bg: #fffcf5;
+    --glass-border: rgba(184, 134, 11, 0.22);
+    --glass-shadow: rgba(184, 134, 11, 0.08);
+    --text-primary: #3b2a11;
+    --text-secondary: #78654a;
+    --accent-color: #b8860b; /* Dark Goldenrod */
+    --accent-hover: #cd853f;
+    --accent-bg-glow: rgba(184, 134, 11, 0.25);
+    --accent-soft: rgba(30, 90, 40, 0.08);
+    --card-hover-border: #b8860b;
+    --nav-bg: #fffcf5;
+    --input-bg: #ffffff;
+    --input-focus-border: #b22222;
+    --box-shadow-card: 0 8px 32px 0 rgba(80, 50, 10, 0.08);
+}
+
+/* 6. Pro Heroes Light Mode */
+:root[data-theme="pro-heroes"][data-scheme="light"] {
+    --bg-gradient: linear-gradient(135deg, #f0f4f8 0%, #dbe2ea 100%);
+    --glass-bg: #ffffff;
+    --glass-border: rgba(0, 180, 80, 0.2);
+    --glass-shadow: rgba(0, 180, 80, 0.08);
+    --text-primary: #111d2e;
+    --text-secondary: #586b82;
+    --accent-color: #e64a19;
+    --accent-hover: #ff5722;
+    --accent-bg-glow: rgba(230, 74, 25, 0.25);
+    --accent-soft: rgba(0, 200, 100, 0.08);
+    --card-hover-border: #00c853;
+    --nav-bg: #ffffff;
+    --input-bg: #ffffff;
+    --input-focus-border: #00c853;
+    --box-shadow-card: 0 8px 32px 0 rgba(10, 30, 60, 0.08);
+}
+
+/* 7. Winter Gear Light Mode */
+:root[data-theme="winter-gear"][data-scheme="light"] {
+    --bg-gradient: linear-gradient(135deg, #f2fafe 0%, #e0f2f1 100%);
+    --glass-bg: #ffffff;
+    --glass-border: rgba(0, 150, 136, 0.18);
+    --glass-shadow: rgba(0, 150, 136, 0.08);
+    --text-primary: #0b2229;
+    --text-secondary: #516b73;
+    --accent-color: #ff6f00;
+    --accent-hover: #ff8f33;
+    --accent-bg-glow: rgba(255, 111, 0, 0.25);
+    --accent-soft: rgba(0, 150, 136, 0.08);
+    --card-hover-border: #009688;
+    --nav-bg: #ffffff;
+    --input-bg: #ffffff;
+    --input-focus-border: #ff6f00;
+    --box-shadow-card: 0 8px 32px 0 rgba(0, 50, 60, 0.06);
+}
+
+/* 8. U.A. Gym Light Mode */
+:root[data-theme="ua-gym"][data-scheme="light"] {
+    --bg-gradient: linear-gradient(135deg, #f5f7fa 0%, #e4e9f2 100%);
+    --glass-bg: #ffffff;
+    --glass-border: rgba(13, 71, 161, 0.15);
+    --glass-shadow: rgba(13, 71, 161, 0.08);
+    --text-primary: #061124;
+    --text-secondary: #576b88;
+    --accent-color: #d32f2f;
+    --accent-hover: #ef5350;
+    --accent-bg-glow: rgba(211, 47, 47, 0.25);
+    --accent-soft: rgba(13, 71, 161, 0.08);
+    --card-hover-border: #0d47a1;
+    --nav-bg: #ffffff;
+    --input-bg: rgba(255, 255, 255, 0.8);
+    --input-focus-border: #0d47a1;
+    --box-shadow-card: 0 8px 32px 0 rgba(13, 71, 161, 0.06);
+}
+
+/* 9. Childhood Light Mode */
+:root[data-theme="origin-childhood"][data-scheme="light"] {
+    --bg-gradient: linear-gradient(135deg, #fafdf6 0%, #f0f7ec 100%);
+    --glass-bg: #ffffff;
+    --glass-border: rgba(46, 125, 50, 0.18);
+    --glass-shadow: rgba(46, 125, 50, 0.08);
+    --text-primary: #142a17;
+    --text-secondary: #556c58;
+    --accent-color: #e67e00;
+    --accent-hover: #ff9800;
+    --accent-bg-glow: rgba(230, 126, 0, 0.25);
+    --accent-soft: rgba(46, 125, 50, 0.08);
+    --card-hover-border: #2e7d32;
+    --nav-bg: #ffffff;
+    --input-bg: rgba(255, 255, 255, 0.8);
+    --input-focus-border: #2e7d32;
+    --box-shadow-card: 0 8px 32px 0 rgba(10, 40, 20, 0.06);
+}
+
+/* 10. Vigilante Light Mode */
+:root[data-theme="vigilante"][data-scheme="light"] {
+    --bg-gradient: linear-gradient(135deg, #f1f4f6 0%, #cbd5e1 100%);
+    --glass-bg: #ffffff;
+    --glass-border: rgba(0, 180, 80, 0.18);
+    --glass-shadow: rgba(0, 180, 80, 0.08);
+    --text-primary: #0f172a;
+    --text-secondary: #475569;
+    --accent-color: #b71c1c;
+    --accent-hover: #d32f2f;
+    --accent-bg-glow: rgba(183, 28, 28, 0.25);
+    --accent-soft: rgba(0, 180, 80, 0.08);
+    --card-hover-border: #00c853;
+    --nav-bg: #ffffff;
+    --input-bg: #ffffff;
+    --input-focus-border: #00c853;
+    --box-shadow-card: 0 8px 32px 0 rgba(15, 23, 42, 0.08);
+}
+
+/* --- THEME TOGGLE STYLING --- */
+#btn-theme-toggle {
+    transition: transform 0.3s ease, background 0.2s ease, border-color 0.2s ease;
+}
+#btn-theme-toggle:hover {
+    transform: rotate(20deg) scale(1.05);
+}
+:root[data-theme="comic-grid"] #btn-theme-toggle,
+:root[data-theme="deku-comic-grid"] #btn-theme-toggle {
+    border: 3px solid #121212 !important;
+    border-radius: 0 !important;
+    box-shadow: 2px 2px 0px #121212;
+}
+:root[data-theme="comic-grid"] #btn-theme-toggle:hover,
+:root[data-theme="deku-comic-grid"] #btn-theme-toggle:hover {
+    transform: none;
+    background: #121212;
+    color: #ffffff;
+}
