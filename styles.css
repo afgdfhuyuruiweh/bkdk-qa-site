@@ -54,7 +54,7 @@
 
 /* 3. Deku Theme (Midoriya Izuku - Emerald Full Cowl) */
 :root[data-theme="deku"] {
-    --bg-gradient: linear-gradient(135deg, #020d0b 0%, #061d19 50%, #140406 100%);
+    --bg-gradient: linear-gradient(135deg, #020d0b 0%, #061d19 50%, #041712 100%);
     --glass-bg: #081b17;
     --glass-border: rgba(0, 230, 118, 0.22);
     --glass-shadow: rgba(0, 230, 118, 0.18);
@@ -67,10 +67,10 @@
     --card-hover-border: #00e676;
     --nav-bg: #020d0b;
     --input-bg: rgba(8, 25, 21, 0.6);
-    --input-focus-border: #d9383a; /* Red shoe accent */
+    --input-focus-border: #00c853; /* Changed from red to rich green */
     --success: #00e676;
     --logo-color: #00e676;
-    --logo-accent: #d9383a;
+    --logo-accent: #00c853; /* Changed from red to rich green */
     --font-heading: 'Outfit', sans-serif;
     --box-shadow-card: 0 8px 32px 0 rgba(0, 0, 0, 0.4);
     --border-radius-card: 20px;
@@ -1545,17 +1545,17 @@ a:hover {
     --glass-shadow: none;
     --text-primary: #121212;
     --text-secondary: #444444;
-    --accent-color: #00b087; /* High-contrast Deku Emerald Green */
-    --accent-hover: #d9383a; /* Red shoe highlight */
+    --accent-color: #00e676; /* Aligned to pro-heroes green */
+    --accent-hover: #00c853; /* Changed from red to rich green */
     --accent-bg-glow: transparent;
-    --accent-soft: #e0f2f1; /* Soft green */
+    --accent-soft: #e8f5e9; /* Soft green */
     --card-hover-border: #121212;
     --nav-bg: #ffffff;
     --input-bg: #ffffff;
     --input-focus-border: #121212;
-    --success: #00b087;
-    --logo-color: #00b087;
-    --logo-accent: #d9383a;
+    --success: #00e676;
+    --logo-color: #00e676;
+    --logo-accent: #00c853; /* Changed from red to rich green */
     --font-heading: 'Bangers', cursive;
     --box-shadow-card: 6px 6px 0px #121212;
     --border-radius-card: 0px;
@@ -1563,8 +1563,8 @@ a:hover {
 }
 
 :root[data-theme="deku-comic-grid"] body::before {
-    background-image: radial-gradient(rgba(0, 176, 135, 0.12) 15%, transparent 16%), 
-                      radial-gradient(rgba(0, 176, 135, 0.12) 15%, transparent 16%);
+    background-image: radial-gradient(rgba(0, 230, 118, 0.12) 15%, transparent 16%), 
+                      radial-gradient(rgba(0, 230, 118, 0.12) 15%, transparent 16%);
 }
 
 /* 8. Cozy Winter Costumes Theme (Icy Teal, Snow White, Katsuki Orange) */
@@ -1709,7 +1709,7 @@ a:hover {
 
 /* 3. Deku Light Mode */
 :root[data-theme="deku"][data-scheme="light"] {
-    --bg-gradient: linear-gradient(135deg, #eaf6f3 0%, #faeaea 100%);
+    --bg-gradient: linear-gradient(135deg, #eaf6f3 0%, #eaf6f0 100%); /* Changed from pink to light green */
     --glass-bg: #ffffff;
     --glass-border: rgba(0, 200, 118, 0.2);
     --glass-shadow: rgba(0, 200, 118, 0.08);
@@ -1722,7 +1722,7 @@ a:hover {
     --card-hover-border: #00a86b;
     --nav-bg: #ffffff;
     --input-bg: #ffffff;
-    --input-focus-border: #d9383a;
+    --input-focus-border: #00c853; /* Changed from red to rich green */
     --box-shadow-card: 0 8px 32px 0 rgba(0, 70, 50, 0.08);
 }
 
@@ -1757,7 +1757,7 @@ a:hover {
     --text-primary: #ffffff;
     --text-secondary: #cccccc;
     --accent-color: #00e676;
-    --accent-hover: #ff5e00;
+    --accent-hover: #00c853; /* Changed from orange to rich green */
     --card-hover-border: #ffffff;
     --nav-bg: #121212;
     --input-bg: #222222;
