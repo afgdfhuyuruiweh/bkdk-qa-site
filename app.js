@@ -1361,21 +1361,20 @@ function openShareModal(type, data = null) {
     if (!modal) return;
     const user = db.getOwner();
     
-    let profileUrl;
     let originUrl = window.location.origin;
     if (originUrl === 'null' || !originUrl || originUrl.startsWith('file') || originUrl.includes('localhost')) {
-        profileUrl = `https://wonderduo.vercel.app/#u/${user.handle}`;
-    } else {
-        profileUrl = `${originUrl}${window.location.pathname}#u/${user.handle}`;
+        originUrl = 'https://wonderduo.vercel.app';
     }
     
-    let shareUrl = profileUrl;
+    const cacheBuster = `t=${Date.now()}`;
+    let shareUrl;
     let defaultTweetText = '';
     
     if (type === 'qa' && data) {
-        shareUrl = `${profileUrl}?q=${data.id}`;
+        shareUrl = `${originUrl}${window.location.pathname}?${cacheBuster}&q=${data.id}#u/${user.handle}`;
         defaultTweetText = `"${data.text}" — Q&A by ${user.displayName} (@${user.handle})`;
     } else {
+        shareUrl = `${originUrl}${window.location.pathname}?${cacheBuster}#u/${user.handle}`;
         defaultTweetText = `Ask me anything on my BkDk Q&A space! 💥⚡`;
     }
     
