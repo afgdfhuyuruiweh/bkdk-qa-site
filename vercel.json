@@ -3,6 +3,10 @@
     {
       "source": "/q/:id",
       "destination": "/api/share?id=:id"
+    },
+    {
+      "source": "/avatar.jpg",
+      "destination": "/api/share?avatar=1"
     }
   ]
 }
