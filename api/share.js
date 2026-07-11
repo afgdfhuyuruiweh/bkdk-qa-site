@@ -2,6 +2,11 @@
 module.exports = async function handler(req, res) {
     const { id, avatar, header } = req.query;
     
+    // Dynamically detect current host domain (works on both preview domains and custom domains)
+    const host = req.headers.host || 'wonderduo.vercel.app';
+    const protocol = req.headers['x-forwarded-proto'] || 'https';
+    const originUrl = `${protocol}://${host}`;
+    
     // 1. Handle dynamic image requests directly from Firestore (base64 or remote URL)
     if (avatar || header) {
         try {
@@ -53,7 +58,7 @@ module.exports = async function handler(req, res) {
                         return res.redirect(302, avatarVal);
                     }
                     // Fallback to static avatar.png
-                    return res.redirect(302, "https://wonderduo.vercel.app/avatar.png");
+                    return res.redirect(302, `${originUrl}/avatar.png`);
                 }
                 
                 if (header) {
@@ -119,7 +124,7 @@ module.exports = async function handler(req, res) {
         
         // Final fallback if anything fails
         if (avatar) {
-            return res.redirect(302, "https://wonderduo.vercel.app/avatar.png");
+            return res.redirect(302, `${originUrl}/avatar.png`);
         } else {
             res.setHeader("Content-Type", "image/svg+xml");
             return res.status(200).send('<svg xmlns="http://www.w3.org/2000/svg" width="800" height="400"><rect width="100%" height="100%" fill="#ff9a9e" /></svg>');
@@ -133,7 +138,7 @@ module.exports = async function handler(req, res) {
     // We fetch the dynamic avatar and header endpoints so they remain synced with Firestore.
     // Adding a timestamp/version helps bypass caching of old profile pictures.
     const cacheBuster = Date.now();
-    const avatarUrl = `https://wonderduo.vercel.app/api/share?avatar=1&v=${cacheBuster}`;
+    const avatarUrl = `${originUrl}/api/share?avatar=1&v=${cacheBuster}`;
     
     // 2. Fetch owner details from Firestore to show correct displayName and handle in previews
     try {
@@ -158,7 +163,7 @@ module.exports = async function handler(req, res) {
         return text.substring(0, maxLength - 3) + "...";
     };
 
-    let title = "wonder duo Q&A 💥⚡";
+    let title = "wonder duo Q&A 💥🥦";
     let desc = "Ask us questions anonymously or publicly! BakuDeku Q&A Space.";
     
     // 3. If a Q&A or Post ID is specified, fetch the details to customize metadata tags
@@ -222,7 +227,7 @@ module.exports = async function handler(req, res) {
     <meta property="og:title" content="${escapedTitle}">
     <meta property="og:description" content="${escapedDesc}">
     <meta property="og:image" content="${avatarUrl}">
-    <meta property="og:url" content="https://wonderduo.vercel.app/q/${escapedId}">
+    <meta property="og:url" content="${originUrl}/q/${escapedId}">
     
     <!-- Twitter / X -->
     <meta name="twitter:card" content="summary">
