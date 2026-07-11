@@ -138,7 +138,7 @@ module.exports = async function handler(req, res) {
     // We fetch the dynamic avatar and header endpoints so they remain synced with Firestore.
     // Adding a timestamp/version helps bypass caching of old profile pictures.
     const cacheBuster = Date.now();
-    const avatarUrl = `${originUrl}/api/share?avatar=1&v=${cacheBuster}`;
+    const avatarUrl = `${originUrl}/avatar.jpg?v=${cacheBuster}`;
     
     // 2. Fetch owner details from Firestore to show correct displayName and handle in previews
     try {
