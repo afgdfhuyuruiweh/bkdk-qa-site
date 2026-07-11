@@ -447,7 +447,7 @@ function renderPublicProfile(owner) {
                 modeAskQBtn.style.fontWeight = '700';
             }
             
-            if (pubAskTitleEl) pubAskTitleEl.textContent = owner.askTitle || "Ask us anything! 💥⚡";
+            if (pubAskTitleEl) pubAskTitleEl.textContent = owner.askTitle || "Ask us anything! 💥🥦";
             if (pubAskTextarea) pubAskTextarea.placeholder = owner.askPlaceholder || "Type your question here...";
             if (btnSubmitQ) btnSubmitQ.textContent = "Ask";
             
@@ -461,7 +461,7 @@ function renderPublicProfile(owner) {
         if (askModesDiv) askModesDiv.style.display = 'none';
         activeAskMode = 'ask-question'; // Fallback
         
-        if (pubAskTitleEl) pubAskTitleEl.textContent = owner.askTitle || "Ask us anything! 💥⚡";
+        if (pubAskTitleEl) pubAskTitleEl.textContent = owner.askTitle || "Ask us anything! 💥🥦";
         if (pubAskTextarea) pubAskTextarea.placeholder = owner.askPlaceholder || "Type your question here...";
         if (btnSubmitQ) btnSubmitQ.textContent = "Ask";
         
@@ -1360,6 +1360,15 @@ window.addEventListener('DOMContentLoaded', () => {
     
     // Initial Routing
     handleRouting();
+    
+    // Check if a specific question or post is requested in the URL query parameters
+    const urlParams = new URLSearchParams(window.location.search);
+    const qId = urlParams.get('q');
+    if (qId) {
+        setTimeout(() => {
+            window.jumpToPublicItem(qId);
+        }, 300);
+    }
 });
 
 // --- SHARE & OPTIONS DROPDOWNS MANAGEMENT ---
@@ -1425,11 +1434,24 @@ function openShareModal(type, data = null) {
     let defaultTweetText = '';
     
     if (type === 'qa' && data) {
-        shareUrl = `${originUrl}${window.location.pathname}?${cacheBuster}&q=${data.id}#u/${user.handle}`;
-        defaultTweetText = `"${data.text}" — Q&A by ${user.displayName} (@${user.handle})`;
+        shareUrl = `${originUrl}/q/${data.id}`;
+        let textToShare = "";
+        if (data.isPost) {
+            textToShare = data.answer;
+        } else if (data.answer) {
+            textToShare = `"${data.text}" — ${data.answer}`;
+        } else {
+            textToShare = `"${data.text}"`;
+        }
+        
+        // Truncate to 200 characters max for Twitter/X sharing safety
+        if (textToShare.length > 200) {
+            textToShare = textToShare.substring(0, 197) + "...";
+        }
+        defaultTweetText = textToShare;
     } else {
-        shareUrl = `${originUrl}${window.location.pathname}?${cacheBuster}#u/${user.handle}`;
-        defaultTweetText = `Ask me anything on my BkDk Q&A space! 💥⚡`;
+        shareUrl = `${originUrl}/#u/${user.handle}`;
+        defaultTweetText = `Ask me anything on my BkDk Q&A space! 💥🥦`;
     }
     
     // Set text input value
@@ -1558,7 +1580,7 @@ window.openLoginModal = function() {
 window.showDesktopNotification = function(q) {
     if (!("Notification" in window)) return;
     if (Notification.permission === "granted") {
-        const title = "New Q&A Question! 💥⚡";
+        const title = "New Q&A Question! 💥🥦";
         const options = {
             body: `"${q.text}" - from ${q.senderName || 'Anonymous'}`,
             icon: 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><linearGradient id="g" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="%2300ffcc"/><stop offset="100%" stop-color="%23ff5e00"/></linearGradient></defs><circle cx="50" cy="50" r="50" fill="url(%23g)"/><text x="50" y="65" font-size="42" text-anchor="middle">💥</text></svg>',

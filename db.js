@@ -3,16 +3,16 @@
 const DEFAULT_OWNER = {
     id: "owner_bkdk",
     handle: "wonderduo",
-    displayName: "wonder duo 💥⚡",
+    displayName: "wonder duo 💥🥦",
     avatar: "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><defs><linearGradient id='bkdk-grad' x1='0%' y1='0%' x2='100%' y2='100%'><stop offset='0%' stop-color='%2300ffcc'/><stop offset='100%' stop-color='%23ff5e00'/></linearGradient></defs><circle cx='50' cy='50' r='50' fill='url(%23bkdk-grad)'/><text x='50' y='65' font-size='42' text-anchor='middle'>💥</text></svg>",
     header: "default",
-    landingBio: "⊹₊˚‧︵‿₊୨ᰔ WONDERDUO Q&A ᰔ ୧₊‿︵‧˚₊⊹\n╰┈➤ BakuDeku Q&A and writing corner.\n\n.ᐟ Welcome! I’m Rue (or Rory!)—part-time AU writer, full-time BakuDeku enthusiast, and professional shipper of the Wonder Duo. 💥⚡ I spend 90% of my time thinking about their rival-to-lovers arc and 10% actually writing fics.\n\n⤹⤷ System Log: This page is my digital fallout shelter for all things bkdk. Feed my inbox with prompts, headcanons, questions, or just share your favorite scenes! Let's talk about our favorite boys. 🧡💚",
-    bio: "💥 Welcome to our explosive corner of the internet! Just another space for bkdk fanfics, headcanons, and the wonder duo itself. Feed our inbox with prompts, questions, ship discussions, or just say hi! ⚡\n\n.ᐟ Comfort zones: multishipping-friendly, au-maker, but bkdk is our absolute main. Ask us anything!",
+    landingBio: "⊹₊˚‧︵‿₊୨ᰔ WONDERDUO Q&A ᰔ ୧₊‿︵‧˚₊⊹\n╰┈➤ BakuDeku Q&A and writing corner.\n\n.ᐟ Welcome! I’m Rue (or Rory!)—part-time AU writer, full-time BakuDeku enthusiast, and professional shipper of the Wonder Duo. 💥🥦 I spend 90% of my time thinking about their rival-to-lovers arc and 10% actually writing fics.\n\n⤹⤷ System Log: This page is my digital fallout shelter for all things bkdk. Feed my inbox with prompts, headcanons, questions, or just share your favorite scenes! Let's talk about our favorite boys. 🧡💚",
+    bio: "💥 Welcome to our explosive corner of the internet! Just another space for bkdk fanfics, headcanons, and the wonder duo itself. Feed our inbox with prompts, questions, ship discussions, or just say hi! 🥦\n\n.ᐟ Comfort zones: multishipping-friendly, au-maker, but bkdk is our absolute main. Ask us anything!",
     sidebarBio: "wonder duo • she/they\nwriting fics & au threads\nbkdk is my hyperfixation\nask me anything!",
     website: "x.com",
     askPrompt: "Type your question here...",
     askPlaceholder: "Type your question here...",
-    askTitle: "Ask us anything! 💥⚡",
+    askTitle: "Ask us anything! 💥🥦",
     theme: "wonder-duo",
     allowAnonymous: true,
     followers: 124,
@@ -100,7 +100,7 @@ class DBService {
                 changed = true;
             }
             if (owner.askTitle === undefined) {
-                owner.askTitle = "Ask us anything! 💥⚡";
+                owner.askTitle = "Ask us anything! 💥🥦";
                 changed = true;
             }
             if (changed) {
