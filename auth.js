@@ -1,5 +1,3 @@
-// BkDk Personal Authentication Service (Single-User Owner)
-
 class AuthService {
     constructor() {
         this.currentUser = null;
@@ -26,7 +24,6 @@ class AuthService {
         this.listeners.forEach(cb => cb(this.currentUser));
     }
 
-    // Google Sign-In: Links the owner to their account
     loginWithOwnerGoogle() {
         if (window.FIREBASE_ACTIVE && window.firebaseLogin) {
             window.firebaseLogin();
@@ -39,7 +36,6 @@ class AuthService {
         return owner;
     }
 
-    // Password Sign-In fallback
     async loginWithPassword(emailOrUsername, password) {
         if (window.FIREBASE_ACTIVE && window.firebaseLoginWithPassword) {
             return await window.firebaseLoginWithPassword(emailOrUsername, password);

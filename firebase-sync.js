@@ -3,7 +3,6 @@ import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebas
 import { getAuth, signInWithPopup, GoogleAuthProvider, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
 import { getFirestore, doc, setDoc, getDoc, collection, addDoc, query, where, getDocs, updateDoc, deleteDoc, onSnapshot } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
-// Check if a valid Firebase configuration is provided
 if (window.FIREBASE_CONFIG && window.FIREBASE_CONFIG.apiKey) {
     console.log("BkDk Q&A: Live Firebase configuration found. Initializing public real-time database...");
 
@@ -14,12 +13,8 @@ if (window.FIREBASE_CONFIG && window.FIREBASE_CONFIG.apiKey) {
 
     window.FIREBASE_ACTIVE = true;
 
-    // --- REAL-TIME DATA SYNC ---
-    
-    // 1. Sync Owner Document
     const ownerDocRef = doc(db, "owners", "bkdk");
-    
-    // Ensure owner document exists in database
+
     getDoc(ownerDocRef).then((snap) => {
         if (!snap.exists()) {
             const initialOwner = JSON.parse(localStorage.getItem("bkdk_owner")) || {
@@ -52,7 +47,6 @@ if (window.FIREBASE_CONFIG && window.FIREBASE_CONFIG.apiKey) {
             };
             setDoc(ownerDocRef, initialOwner);
 
-            // Seed database questions only on very first owner creation!
             const initialQs = JSON.parse(localStorage.getItem("bkdk_questions")) || [];
             initialQs.forEach(q => {
                 addDoc(questionsCol, {
@@ -89,9 +83,9 @@ if (window.FIREBASE_CONFIG && window.FIREBASE_CONFIG.apiKey) {
             }
             
             localStorage.setItem("bkdk_owner", JSON.stringify(data));
-            // Notify auth and app elements to re-render
+            
             if (window.auth && window.auth.notify) {
-                // If logged in locally, update auth currentUser reference
+                
                 if (localStorage.getItem("bkdk_owner_logged_in") === "true") {
                     window.auth.currentUser = data;
                 }
@@ -101,8 +95,6 @@ if (window.FIREBASE_CONFIG && window.FIREBASE_CONFIG.apiKey) {
         }
     });
 
-    // 2. Sync Questions Collection
-
     let isInitialLoad = true;
     onSnapshot(questionsCol, (snapshot) => {
         const list = [];
@@ -111,8 +103,7 @@ if (window.FIREBASE_CONFIG && window.FIREBASE_CONFIG.apiKey) {
         });
         
         localStorage.setItem("bkdk_questions", JSON.stringify(list));
-        
-        // Handle desktop notifications for new incoming questions
+
         if (!isInitialLoad) {
             snapshot.docChanges().forEach((change) => {
                 if (change.type === "added") {
@@ -132,8 +123,6 @@ if (window.FIREBASE_CONFIG && window.FIREBASE_CONFIG.apiKey) {
         }
         window.dispatchEvent(new Event("bkdk_db_sync"));
     });
-
-    // --- WRITE ACTIONS (EXPOSED OVERRIDES) ---
 
     window.firebaseAskQuestion = async (text, senderName, isAnonymous, parentQuestionId = null) => {
         try {
@@ -260,8 +249,6 @@ if (window.FIREBASE_CONFIG && window.FIREBASE_CONFIG.apiKey) {
         }
     };
 
-    // --- GOOGLE AUTHENTICATION INTEGRATION ---
-
     const provider = new GoogleAuthProvider();
 
     window.firebaseLogin = async () => {
@@ -358,7 +345,6 @@ if (window.FIREBASE_CONFIG && window.FIREBASE_CONFIG.apiKey) {
         }
     };
 
-    // Listen to Firebase Auth state
     onAuthStateChanged(auth, async (user) => {
         if (user) {
             const docSnap = await getDoc(ownerDocRef);

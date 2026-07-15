@@ -1,7 +1,7 @@
-// --- CONFIG & GLOBAL STATE ---
-let activeTab = 'inbox'; // inbox, answers, settings
-let activePublicTab = 'answers'; // answers, posts
-let activeAskMode = 'ask-question'; // ask-question, write-post
+// forda configuration and global state variables
+let activeTab = 'inbox'; 
+let activePublicTab = 'answers'; 
+let activeAskMode = 'ask-question'; 
 let activeQuoteItem = null;
 let tempAvatarBase64 = null;
 let tempHeaderBase64 = null;
@@ -11,7 +11,6 @@ document.documentElement.setAttribute('data-scheme', activeColorScheme);
 const DEFAULT_AVATAR = "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><defs><linearGradient id='bkdk-grad' x1='0%' y1='0%' x2='100%' y2='100%'><stop offset='0%' stop-color='%2300ffcc'/><stop offset='100%' stop-color='%23ff5e00'/></linearGradient></defs><circle cx='50' cy='50' r='50' fill='url(%23bkdk-grad)'/><text x='50' y='65' font-size='42' text-anchor='middle'>💥</text></svg>";
 const DEFAULT_HEADER = "default";
 
-// --- UTILITY: COMPRESS IMAGES CLIENT-SIDE TO PREVENT FIRESTORE 1MB DOCUMENT LIMIT EXCEEDED ---
 function compressImage(base64Str, maxWidth, maxHeight, quality = 0.75) {
     return new Promise((resolve) => {
         const img = new Image();
@@ -20,7 +19,6 @@ function compressImage(base64Str, maxWidth, maxHeight, quality = 0.75) {
             let width = img.width;
             let height = img.height;
             
-            // Calculate new dimensions
             if (width > maxWidth) {
                 height = Math.round((height * maxWidth) / width);
                 width = maxWidth;
@@ -37,16 +35,14 @@ function compressImage(base64Str, maxWidth, maxHeight, quality = 0.75) {
             const ctx = canvas.getContext('2d');
             ctx.drawImage(img, 0, 0, width, height);
             
-            // Export as compressed JPEG
             resolve(canvas.toDataURL('image/jpeg', quality));
         };
         img.onerror = () => {
-            resolve(base64Str); // Fallback to original if load fails
+            resolve(base64Str); 
         };
     });
 }
 
-// --- UTILITY: RENDER CONSISTENT IOS EMOJIS VIA TWEMOJI & APPLE EMOJI DATASOURCE ---
 function applyIosEmojis(target) {
     if (typeof twemoji === 'undefined') return;
     const el = typeof target === 'string' ? document.getElementById(target) : target;
@@ -56,7 +52,6 @@ function applyIosEmojis(target) {
     });
 }
 
-// Global capture-phase error listener for emoji images to handle variation selector mismatches (e.g., 2764.png vs 2764-fe0f.png)
 window.addEventListener('error', (e) => {
     if (e.target && e.target.tagName === 'IMG' && e.target.classList.contains('emoji')) {
         const img = e.target;
@@ -72,7 +67,6 @@ window.addEventListener('error', (e) => {
     }
 }, true);
 
-// --- UTILITY: VISITOR SESSION ID FOR LIKES ---
 function getVisitorSessionId() {
     let visitorId = localStorage.getItem("bkdk_visitor_id");
     if (!visitorId) {
@@ -82,12 +76,10 @@ function getVisitorSessionId() {
     return visitorId;
 }
 
-// --- UTILITY: TOAST NOTIFICATIONS ---
 function showToast(message, type = 'info') {
     const container = document.getElementById('toast-container');
     if (!container) return;
     
-    // Create new toast element
     const toast = document.createElement('div');
     toast.className = `toast ${type}`;
     
@@ -95,14 +87,12 @@ function showToast(message, type = 'info') {
     toastMsg.textContent = message;
     toast.appendChild(toastMsg);
     
-    // Add custom twemoji icons if available
     const icon = document.createElement('span');
     icon.innerHTML = type === 'success' ? '💥' : (type === 'error' ? '⚡' : '✨');
     toast.insertBefore(icon, toastMsg);
     
     container.appendChild(toast);
     
-    // Animate & remove
     setTimeout(() => {
         toast.style.opacity = '0';
         toast.style.transform = 'translateY(10px) scale(0.9)';
@@ -111,7 +101,7 @@ function showToast(message, type = 'info') {
     }, 3000);
 }
 
-// --- UTILITY: TIME FORMATTER ---
+// forda time formatter
 function getRelativeTime(dateString) {
     if (!dateString) return '';
     const date = new Date(dateString);
@@ -127,7 +117,7 @@ function getRelativeTime(dateString) {
     return `${diffDays}d ago`;
 }
 
-// --- UTILITY: APPLY HEADER BANNER ---
+// forda header banner application
 function applyHeaderBanner(element, headerVal) {
     if (!element) return;
     const val = headerVal || "default";
@@ -143,7 +133,6 @@ function applyHeaderBanner(element, headerVal) {
     }
 }
 
-// --- RENTRY CUSTOM SYNTAX PARSING ---
 function parseUnderlines(text) {
     return text.replace(/!~([\s\S]*?)~!/g, (match, content) => {
         const parts = content.split(';');
@@ -179,27 +168,23 @@ function preprocessRentry(text) {
     if (!text) return '';
     let lines = text.split('\n');
     lines = lines.map(line => {
-        // 1. Headers with centering: e.g. # -> text <-
         const headerCenterMatch = line.match(/^(\s*)(#+)\s*->\s*(.*?)\s*<-$/);
         if (headerCenterMatch) {
             return `${headerCenterMatch[1]}${headerCenterMatch[2]} <span class="md-center-inline">${headerCenterMatch[3]}</span>`;
         }
         
-        // 2. Block centering with optional blockquote: e.g. > -> text <- or -> text <-
         const centerMatch = line.match(/^(\s*)(>?)\s*->\s*(.*?)\s*<-$/);
         if (centerMatch) {
             const prefix = centerMatch[2] ? `${centerMatch[2]} ` : '';
             return `${centerMatch[1]}${prefix}<div class="md-center">${centerMatch[3]}</div>`;
         }
         
-        // 3. Block right alignment with optional blockquote: e.g. > -> text -> or -> text ->
         const rightMatch = line.match(/^(\s*)(>?)\s*->\s*(.*?)\s*->$/);
         if (rightMatch) {
             const prefix = rightMatch[2] ? `${rightMatch[2]} ` : '';
             return `${rightMatch[1]}${prefix}<div class="md-right">${rightMatch[3]}</div>`;
         }
         
-        // Auto-embed direct image/GIF links if they are on a line by themselves
         const cleanLine = line.trim();
         const isUrl = cleanLine.startsWith('http://') || cleanLine.startsWith('https://');
         const hasImgExt = /\.(jpeg|jpg|gif|png|webp|svg)/i.test(cleanLine) || cleanLine.includes('tenor.com/view') || cleanLine.includes('giphy.com/media') || cleanLine.includes('media.giphy.com');
@@ -212,13 +197,10 @@ function preprocessRentry(text) {
     
     let processed = lines.join('\n');
     
-    // 4. Spoilers: !> text !>
     processed = processed.replace(/!>([\s\S]*?)!>/g, '<span class="spoiler" onclick="this.classList.toggle(\'revealed\')">$1</span>');
     
-    // 5. Colors: %#hex% text %% or %color% text %%
     processed = processed.replace(/%([#a-zA-Z0-9]+)%([\s\S]*?)%%/g, '<span style="color: $1;">$2</span>');
     
-    // 6. Underlines
     processed = parseUnderlines(processed);
     
     return processed;
@@ -230,7 +212,6 @@ function renderMarkdown(text) {
     return marked.parse(preprocessed);
 }
 
-// --- DYNAMIC BACKGROUND PARTICLES CANVAS ---
 class ParticleSystem {
     constructor() {
         this.canvas = document.getElementById('canvas-particles');
@@ -242,7 +223,6 @@ class ParticleSystem {
         
         this.theme = document.documentElement.getAttribute('data-theme') || 'wonder-duo';
         
-        // Listen to attribute changes on <html> tag to adjust particle colors live
         const observer = new MutationObserver((mutations) => {
             mutations.forEach((mutation) => {
                 if (mutation.type === "attributes" && mutation.attributeName === "data-theme") {
@@ -269,7 +249,7 @@ class ParticleSystem {
         const vy = -(Math.random() * 1.5 + 0.5);
         const maxLife = Math.random() * 150 + 100;
         
-        let color = '#00ffb7'; // Wonder Duo Default (Teal)
+        let color = '#00ffb7'; // default color for wonder-duo theme
         if (this.theme === 'dynamight') {
             color = Math.random() > 0.4 ? '#ff5e00' : '#ffc107'; // orange or gold
         } else if (this.theme === 'deku') {
@@ -296,14 +276,12 @@ class ParticleSystem {
     loop() {
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
         
-        // Only generate particles if theme is not comic-grid
         if (this.theme !== 'comic-grid' && this.theme !== 'deku-comic-grid') {
-            // Spawn new particles
+            // particles for theme
             if (this.particles.length < 80 && Math.random() < 0.15) {
                 this.particles.push(this.createParticle());
             }
 
-            // Update and draw particles
             for (let i = this.particles.length - 1; i >= 0; i--) {
                 const p = this.particles[i];
                 p.x += p.vx;
@@ -317,50 +295,47 @@ class ParticleSystem {
                 this.ctx.arc(p.x, p.y, p.radius * (1 - ratio * 0.3), 0, Math.PI * 2);
                 this.ctx.fillStyle = p.color;
                 
-                // Add soft glowing shadow
+                // glowing particles effect
                 this.ctx.shadowBlur = 10;
                 this.ctx.shadowColor = p.color;
                 
                 this.ctx.globalAlpha = alpha;
                 this.ctx.fill();
                 
-                // Remove dead particles
+                // remove 
                 if (p.life >= p.maxLife || p.x < 0 || p.x > this.canvas.width) {
                     this.particles.splice(i, 1);
                 }
             }
         }
         
-        this.ctx.shadowBlur = 0; // Reset blur
+        this.ctx.shadowBlur = 0;
         this.ctx.globalAlpha = 1.0;
         
         requestAnimationFrame(() => this.loop());
     }
 }
 
-// --- ROUTING MANAGER ---
 function handleRouting() {
     const hash = window.location.hash || '#';
     
-    // Hide all view screens
     document.querySelectorAll('.page-view').forEach(view => view.classList.remove('active'));
     
     const owner = db.getOwner();
     
     if (hash === '#dashboard') {
         if (!auth.currentUser) {
-            // If trying to access dashboard but not logged in, trigger mock login
             auth.loginWithOwnerGoogle();
             return;
         }
         document.getElementById('dashboard-view').classList.add('active');
         renderDashboard();
     } else if (hash.startsWith('#u/')) {
-        // Public profile view
+        // forda public profile view
         document.getElementById('profile-view').classList.add('active');
         renderPublicProfile(owner);
     } else {
-        // Landing Page
+        // forda landing page
         document.getElementById('landing-view').classList.add('active');
         if (owner) {
             const welcomeMsgEl = document.getElementById('landing-welcome-message');
@@ -373,14 +348,11 @@ function handleRouting() {
 window.addEventListener('hashchange', handleRouting);
 window.addEventListener('bkdk_db_sync', handleRouting);
 
-// --- RENDERING PROFILE FEED ---
 function renderPublicProfile(owner) {
     if (!owner) return;
     
-    // Update theme
     document.documentElement.setAttribute('data-theme', owner.theme || 'wonder-duo');
     
-    // Set text elements
     document.getElementById('pub-profile-avatar').src = owner.avatar || DEFAULT_AVATAR;
     document.getElementById('pub-profile-name').textContent = owner.displayName;
     applyHeaderBanner(document.getElementById('pub-profile-banner'), owner.header);
@@ -398,7 +370,7 @@ function renderPublicProfile(owner) {
         document.getElementById('pub-profile-link-row').style.display = 'none';
     }
     
-    // Show edit button if owner is logged in
+    // edit button if naka log in si mod
     const editBtn = document.getElementById('btn-sidebar-edit');
     if (auth.currentUser && auth.currentUser.id === owner.id) {
         editBtn.style.display = 'flex';
@@ -406,7 +378,7 @@ function renderPublicProfile(owner) {
         editBtn.style.display = 'none';
     }
     
-    // Setup Ask Box Mode Toggles and placeholders
+    // edit ask box and other placeholder
     const askModesDiv = document.getElementById('ask-box-modes');
     const pubAskTitleEl = document.getElementById('pub-ask-title');
     const pubAskTextarea = document.getElementById('pub-ask-textarea');
@@ -416,7 +388,7 @@ function renderPublicProfile(owner) {
     const checkAnon = document.getElementById('checkbox-ask-anon');
     
     if (auth.currentUser && auth.currentUser.id === owner.id) {
-        // Show Write Post vs Ask Question tabs for owner
+        // show for mod
         if (askModesDiv) askModesDiv.style.display = 'flex';
         
         const modeWritePostBtn = document.getElementById('mode-write-post');
@@ -457,9 +429,9 @@ function renderPublicProfile(owner) {
             }
         }
     } else {
-        // Standard public ask box display for visitors
+        // standard view for public visitors aka nonmod
         if (askModesDiv) askModesDiv.style.display = 'none';
-        activeAskMode = 'ask-question'; // Fallback
+        activeAskMode = 'ask-question';
         
         if (pubAskTitleEl) pubAskTitleEl.textContent = owner.askTitle || "Ask us anything! 💥🥦";
         if (pubAskTextarea) pubAskTextarea.placeholder = owner.askPlaceholder || "Type your question here...";
@@ -472,7 +444,7 @@ function renderPublicProfile(owner) {
     }
     applyIosEmojis('pub-ask-title');
     
-    // Social links box
+    // links box
     const socialsCard = document.getElementById('pub-socials-card');
     const socialsContainer = document.getElementById('pub-socials-container');
     socialsContainer.innerHTML = '';
@@ -500,11 +472,10 @@ function renderPublicProfile(owner) {
     
     socialsCard.style.display = hasSocials ? 'block' : 'none';
     
-    // Title/Bio Slogan Card
+    // slogan card text box
     document.getElementById('pub-profile-slogan').innerHTML = renderMarkdown(owner.bio);
     applyIosEmojis('pub-profile-slogan');
     
-    // Render active quote preview if any
     const quoteContainer = document.getElementById('quote-preview-container');
     if (quoteContainer) {
         if (activeQuoteItem) {
@@ -530,7 +501,6 @@ function renderPublicProfile(owner) {
         }
     }
     
-    // Render tabs contents
     const questions = db.getPublicQA();
     const answers = questions.filter(q => !q.isPost);
     const posts = questions.filter(q => q.isPost);
@@ -702,12 +672,11 @@ function renderPublicProfile(owner) {
     });
 }
 
-// --- OWNER DASHBOARD VIEW RENDERING ---
+// owner dashboard view
 function renderDashboard() {
     const user = auth.currentUser;
     if (!user) return;
     
-    // Update dashboard sidebar user info
     const dashSidebarName = document.getElementById('dash-sidebar-name');
     if (dashSidebarName) dashSidebarName.textContent = user.displayName || 'Mod';
     
@@ -722,7 +691,6 @@ function renderDashboard() {
         viewPublicBtn.href = `#u/${user.handle || 'user'}`;
     }
     
-    // Update active tab styles
     document.querySelectorAll('.sidebar-menu button').forEach(btn => btn.classList.remove('active'));
     document.querySelectorAll('.dash-content-section').forEach(sec => sec.classList.remove('active'));
     
@@ -740,7 +708,7 @@ function renderDashboard() {
         populateSettings(user);
     }
     
-    // Stats count updates
+    // stats count 
     const questions = db.getQuestions();
     const answeredCount = questions.filter(q => q.answer !== null && !q.isPost).length;
     const postsCount = questions.filter(q => q.isPost).length;
@@ -904,7 +872,7 @@ function populateSettings(user) {
         adminPwdInput.value = user.adminPassword || '';
     }
     
-    // Themes active card
+    // themes
     document.querySelectorAll('.theme-card').forEach(card => {
         if (card.dataset.themeId === user.theme) {
             card.classList.add('active');
@@ -914,8 +882,7 @@ function populateSettings(user) {
     });
 }
 
-// --- INTERACTIVE METHODS OVERRIDES ---
-
+// interactive overrides
 window.toggleReplyBox = function(id) {
     const box = document.getElementById(`reply-box-${id}`);
     box.style.display = box.style.display === 'none' ? 'flex' : 'none';
@@ -964,7 +931,6 @@ window.toggleLike = function(id) {
     const visitorId = getVisitorSessionId();
     db.likeAnswer(id, visitorId);
     
-    // Re-render public profile to show immediate count changes
     const owner = db.getOwner();
     renderPublicProfile(owner);
 };
@@ -990,15 +956,13 @@ window.submitComment = function(id) {
     textInput.value = '';
     showToast("Comment posted!", "success");
     
-    // Re-render
     const owner = db.getOwner();
     renderPublicProfile(owner);
     
-    // Keep comments panel open
     document.getElementById(`comments-panel-${id}`).style.display = 'block';
 };
 
-// --- AUTH UI HANDLERS ---
+// authentication and navbar updates
 function updateNavbarAuth(user) {
     const container = document.getElementById('nav-auth-container');
     if (user) {
@@ -1028,40 +992,38 @@ function updateNavbarAuth(user) {
     }
 }
 
-// --- EVENT LISTENERS BINDING ---
+// event listeners for various UI interactions
 function setupEventListeners() {
-    // Auth Listener
+    // auth Listener
     auth.onAuthStateChanged((user) => {
         updateNavbarAuth(user);
         if (user) {
-            // Apply owner theme
+            // apply owner theme
             document.documentElement.setAttribute('data-theme', user.theme || 'wonder-duo');
             populateSettings(user);
             
-            // Request desktop notification permission for the mod
             if ("Notification" in window && Notification.permission === "default") {
                 Notification.requestPermission();
             }
         } else {
-            // Default visitor theme
             const owner = db.getOwner();
             document.documentElement.setAttribute('data-theme', owner.theme || 'wonder-duo');
         }
         handleRouting();
     });
 
-    // Landing Page login button
+    // anding Page login button
     document.getElementById('btn-landing-login').addEventListener('click', () => {
         window.openLoginModal();
     });
 
-    // Owner footer login
+    // owner footer login button
     document.getElementById('owner-footer-login').addEventListener('click', (e) => {
         e.preventDefault();
         window.openLoginModal();
     });
 
-    // Dashboard tabs
+    // forda dashboard tabs
     document.getElementById('btn-dash-inbox').addEventListener('click', () => {
         activeTab = 'inbox';
         renderDashboard();
@@ -1075,7 +1037,7 @@ function setupEventListeners() {
         renderDashboard();
     });
 
-    // File Chooser Uploader Listeners
+    // file choosers for avatar and header images
     document.getElementById('settings-avatar-file').addEventListener('change', (e) => {
         const file = e.target.files[0];
         if (file) {
@@ -1118,7 +1080,7 @@ function setupEventListeners() {
         showToast("Header banner reset to default!", "info");
     });
 
-    // Toggle Light/Dark Mode Button
+    // light dark mode toggle button 
     const btnThemeToggle = document.getElementById('btn-theme-toggle');
     const toggleIcon = document.getElementById('theme-toggle-icon');
     
@@ -1145,7 +1107,7 @@ function setupEventListeners() {
         });
     }
 
-    // Ask Box Mode Toggles
+    // ask box
     const modeWritePostBtn = document.getElementById('mode-write-post');
     if (modeWritePostBtn) {
         modeWritePostBtn.addEventListener('click', () => {
@@ -1163,7 +1125,7 @@ function setupEventListeners() {
         });
     }
 
-    // Check Anon display toggle
+    // check anon checkbox to hide/show name input
     const checkAnonInput = document.getElementById('checkbox-ask-anon');
     if (checkAnonInput) {
         checkAnonInput.addEventListener('change', () => {
@@ -1174,19 +1136,19 @@ function setupEventListeners() {
         });
     }
 
-    // Theme pickers inside settings
+    // theme pickers setting
     document.querySelectorAll('.theme-card').forEach(card => {
         card.addEventListener('click', () => {
             document.querySelectorAll('.theme-card').forEach(c => c.classList.remove('active'));
             card.classList.add('active');
             
-            // Instantly apply theme preview so user can check colors!
+            // apply theme immediately to check
             const selectedTheme = card.dataset.themeId;
             document.documentElement.setAttribute('data-theme', selectedTheme);
         });
     });
 
-    // Save Settings
+    // save settings button
     document.getElementById('btn-save-settings').addEventListener('click', () => {
         const displayName = document.getElementById('edit-display-name').value.trim();
         const handle = document.getElementById('edit-handle').value.trim().toLowerCase().replace(/\s+/g, '');
@@ -1222,7 +1184,7 @@ function setupEventListeners() {
         renderDashboard();
     });
 
-    // Submit Question / Create Post from Public/Owner profile
+    // submit question or post button as owner
     document.getElementById('btn-submit-question').addEventListener('click', () => {
         const textarea = document.getElementById('pub-ask-textarea');
         const text = textarea.value.trim();
@@ -1233,13 +1195,11 @@ function setupEventListeners() {
         
         const quoteId = activeQuoteItem ? activeQuoteItem.id : null;
         
-        // Check if owner is logged in and in write-post mode
         if (auth.currentUser && activeAskMode === 'write-post') {
-            // Write standalone post
             db.createPost(text, quoteId);
             showToast("Post published to your feed!", "success");
         } else {
-            // Ask question
+            // for ask question
             const nameInput = document.getElementById('pub-ask-name');
             const isAnonInput = document.getElementById('checkbox-ask-anon');
             const name = nameInput ? nameInput.value.trim() : '';
@@ -1254,7 +1214,6 @@ function setupEventListeners() {
             if (nameInput) nameInput.value = '';
         }
         
-        // Reset quote
         activeQuoteItem = null;
         
         textarea.value = '';
@@ -1262,7 +1221,7 @@ function setupEventListeners() {
         renderPublicProfile(owner);
     });
 
-    // Switch between public profile tabs (Answers vs Posts)
+    // switch between answer post
     document.getElementById('tab-answers').addEventListener('click', () => {
         activePublicTab = 'answers';
         document.getElementById('tab-answers').classList.add('active');
@@ -1281,7 +1240,6 @@ function setupEventListeners() {
         renderPublicProfile(owner);
     });
 
-    // Share Profile Sidebar Button
     const shareProfBtn = document.getElementById('btn-share-profile');
     if (shareProfBtn) {
         shareProfBtn.addEventListener('click', () => {
@@ -1289,7 +1247,6 @@ function setupEventListeners() {
         });
     }
 
-    // Close Share Modal handlers
     const closeShareModalBtn = document.getElementById('btn-close-share-modal');
     if (closeShareModalBtn) {
         closeShareModalBtn.addEventListener('click', () => {
@@ -1305,7 +1262,6 @@ function setupEventListeners() {
         });
     }
 
-    // Login Modal handlers
     const closeLoginModalBtn = document.getElementById('btn-close-login-modal');
     if (closeLoginModalBtn) {
         closeLoginModalBtn.addEventListener('click', () => {
@@ -1350,18 +1306,13 @@ function setupEventListeners() {
     }
 }
 
-// --- INITIALIZATION ---
+// initialization 
 window.addEventListener('DOMContentLoaded', () => {
-    // Start background particle loop
     new ParticleSystem();
-    
-    // Bind listeners
     setupEventListeners();
-    
-    // Initial Routing
     handleRouting();
     
-    // Check if a specific question or post is requested in the URL query parameters
+    // seo req feedback
     const urlParams = new URLSearchParams(window.location.search);
     const qId = urlParams.get('q');
     if (qId) {
@@ -1371,11 +1322,11 @@ window.addEventListener('DOMContentLoaded', () => {
     }
 });
 
-// --- SHARE & OPTIONS DROPDOWNS MANAGEMENT ---
+// share option
 window.toggleCardDropdown = function(event, id) {
     event.stopPropagation();
     
-    // Close other dropdowns
+    // close other dropdowns
     document.querySelectorAll('.dropdown-menu').forEach(menu => {
         if (menu.id !== `dropdown-menu-${id}`) {
             menu.classList.remove('active');
@@ -1392,7 +1343,6 @@ window.deletePublicQuestion = function(id) {
     if (confirm("Are you sure you want to delete this question/post? This action is permanent.")) {
         db.deleteQuestion(id);
         showToast("Deleted successfully", "info");
-        // Re-render profile
         const owner = db.getOwner();
         renderPublicProfile(owner);
     }
@@ -1433,6 +1383,7 @@ function openShareModal(type, data = null) {
     let shareUrl;
     let defaultTweetText = '';
     
+    // seo req feedback
     if (type === 'qa' && data) {
         shareUrl = `${originUrl}/q/${data.id}`;
         let textToShare = "";
@@ -1444,7 +1395,6 @@ function openShareModal(type, data = null) {
             textToShare = `"${data.text}"`;
         }
         
-        // Truncate to 200 characters max for Twitter/X sharing safety
         if (textToShare.length > 200) {
             textToShare = textToShare.substring(0, 197) + "...";
         }
@@ -1454,13 +1404,11 @@ function openShareModal(type, data = null) {
         defaultTweetText = `Ask me anything on my BkDk Q&A space! 💥🥦`;
     }
     
-    // Set text input value
     const textarea = document.getElementById('share-custom-text');
     if (textarea) {
         textarea.value = shareUrl;
     }
     
-    // Setup Copy Link action
     const copyBtn = document.getElementById('share-opt-copy');
     if (copyBtn) {
         const newCopyBtn = copyBtn.cloneNode(true);
@@ -1475,7 +1423,7 @@ function openShareModal(type, data = null) {
         });
     }
     
-    // Set X/Twitter share link
+    // set twt share link
     const twitterLink = document.getElementById('share-opt-twitter');
     if (twitterLink) {
         twitterLink.href = `https://twitter.com/intent/tweet?text=${encodeURIComponent(defaultTweetText)}&url=${encodeURIComponent(shareUrl)}`;
@@ -1489,18 +1437,10 @@ function openShareModal(type, data = null) {
         fbLink.target = '_blank';
     }
     
-    // Set Bluesky share link
-    const bskyLink = document.getElementById('share-opt-bluesky');
-    if (bskyLink) {
-        bskyLink.href = `https://bsky.app/intent/compose?text=${encodeURIComponent(defaultTweetText + ' ' + shareUrl)}`;
-        bskyLink.target = '_blank';
-    }
-    
-    // Display Modal
     modal.style.display = 'flex';
 }
 
-// Global click listener to close dropdowns when clicking outside
+// global click listener 
 document.addEventListener('click', () => {
     document.querySelectorAll('.dropdown-menu').forEach(menu => {
         menu.classList.remove('active');
@@ -1512,26 +1452,22 @@ window.quoteItem = function(id) {
     if (q) {
         activeQuoteItem = q;
         
-        // Scroll to ask box
         const askBox = document.getElementById('pub-ask-box-container');
         if (askBox) {
             askBox.scrollIntoView({ behavior: 'smooth' });
         }
         
-        // Focus textarea
         const textarea = document.getElementById('pub-ask-textarea');
         if (textarea) {
             textarea.focus();
         }
         
-        // Re-render to show active quote banner
         const owner = db.getOwner();
         renderPublicProfile(owner);
     }
 };
 
 window.jumpToPublicItem = function(id) {
-    // Route to profile if not there
     if (!window.location.hash.startsWith('#u/')) {
         const owner = db.getOwner();
         window.location.hash = `#u/${owner.handle}`;
@@ -1540,7 +1476,6 @@ window.jumpToPublicItem = function(id) {
     const q = db.getQuestions().find(item => item.id === id);
     if (!q) return;
     
-    // Select proper feed tab
     if (q.isPost) {
         activePublicTab = 'posts';
         document.getElementById('tab-posts').classList.add('active');
@@ -1551,11 +1486,9 @@ window.jumpToPublicItem = function(id) {
         document.getElementById('tab-posts').classList.remove('active');
     }
     
-    // Re-render
     const owner = db.getOwner();
     renderPublicProfile(owner);
     
-    // Highlight
     setTimeout(() => {
         const target = document.getElementById(`qa-card-public-${id}`);
         if (target) {

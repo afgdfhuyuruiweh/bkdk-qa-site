@@ -1,8 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Bangers&family=Outfit:wght@300;400;500;600;700;800&display=swap');
 
-/* --- THEME DEFINITIONS --- */
-
-/* 1. Wonder Duo Theme (Teal & Orange Hybrid) */
 :root[data-theme="wonder-duo"] {
     --bg-gradient: linear-gradient(135deg, #04100e 0%, #0c1a17 50%, #1b0f06 100%);
     --glass-bg: #0c1c19;
@@ -27,7 +24,6 @@
     --border-width-card: 1px;
 }
 
-/* 2. Dynamight Theme (Bakugo Katsuki - Explosive Orange & Black) */
 :root[data-theme="dynamight"] {
     --bg-gradient: linear-gradient(135deg, #050505 0%, #121212 50%, #240c02 100%);
     --glass-bg: #161616;
@@ -52,7 +48,6 @@
     --border-width-card: 1px;
 }
 
-/* 3. Deku Theme (Midoriya Izuku - Emerald Full Cowl) */
 :root[data-theme="deku"] {
     --bg-gradient: linear-gradient(135deg, #020d0b 0%, #061d19 50%, #041712 100%);
     --glass-bg: #081b17;
@@ -67,17 +62,16 @@
     --card-hover-border: #00e676;
     --nav-bg: #020d0b;
     --input-bg: rgba(8, 25, 21, 0.6);
-    --input-focus-border: #00c853; /* Changed from red to rich green */
+    --input-focus-border: #00c853; 
     --success: #00e676;
     --logo-color: #00e676;
-    --logo-accent: #00c853; /* Changed from red to rich green */
+    --logo-accent: #00c853; 
     --font-heading: 'Outfit', sans-serif;
     --box-shadow-card: 0 8px 32px 0 rgba(0, 0, 0, 0.4);
     --border-radius-card: 20px;
     --border-width-card: 1px;
 }
 
-/* 4. Comic Grid Theme (Manga / Retro Halftone) */
 :root[data-theme="comic-grid"], :root[data-theme="deku-comic-grid"] {
     --bg-gradient: #ffffff;
     --glass-bg: #ffffff;
@@ -102,7 +96,6 @@
     --border-width-card: 3px;
 }
 
-/* 5. Fantasy AU Theme (BkDk Dragon Knight & Barbarian) */
 :root[data-theme="fantasy-au"] {
     --bg-gradient: linear-gradient(135deg, #151d16 0%, #1e1310 50%, #2f1d0b 100%);
     --glass-bg: #1c1916;
@@ -110,24 +103,23 @@
     --glass-shadow: rgba(212, 175, 55, 0.15);
     --text-primary: #f5edd6;
     --text-secondary: #c2b69a;
-    --accent-color: #d4af37; /* Royal Gold */
+    --accent-color: #d4af37; 
     --accent-hover: #e5c158;
     --accent-bg-glow: rgba(212, 175, 55, 0.6);
-    --accent-soft: rgba(30, 90, 40, 0.18); /* Soft Forest Green */
+    --accent-soft: rgba(30, 90, 40, 0.18); 
     --card-hover-border: #d4af37;
     --nav-bg: #151d16;
     --input-bg: rgba(35, 30, 26, 0.7);
-    --input-focus-border: #c62828; /* Dragon Crimson */
+    --input-focus-border: #c62828; 
     --success: #d4af37;
-    --logo-color: #c62828; /* Red cloak */
-    --logo-accent: #1b5e20; /* Knight armor */
+    --logo-color: #c62828; 
+    --logo-accent: #1b5e20; 
     --font-heading: 'Outfit', sans-serif;
     --box-shadow-card: 0 8px 32px 0 rgba(0, 0, 0, 0.55);
     --border-radius-card: 20px;
     --border-width-card: 1px;
 }
 
-/* 6. Pro Heroes Theme (Sleek Modern Agency - Navy Steel, Bio Green & Cyber Orange) */
 :root[data-theme="pro-heroes"] {
     --bg-gradient: linear-gradient(135deg, #090f1a 0%, #0d1b2e 50%, #150b24 100%);
     --glass-bg: #0e1a2b;
@@ -135,10 +127,10 @@
     --glass-shadow: rgba(0, 230, 118, 0.15);
     --text-primary: #e3ecf8;
     --text-secondary: #90a8c2;
-    --accent-color: #ff5500; /* Cyber Orange */
+    --accent-color: #ff5500; 
     --accent-hover: #ff7733;
     --accent-bg-glow: rgba(255, 85, 0, 0.6);
-    --accent-soft: rgba(0, 230, 118, 0.15); /* Bio Green */
+    --accent-soft: rgba(0, 230, 118, 0.15); 
     --card-hover-border: #00e676;
     --nav-bg: #090f1a;
     --input-bg: rgba(14, 26, 43, 0.68);
@@ -152,7 +144,6 @@
     --border-width-card: 1px;
 }
 
-/* --- BASE STYLES --- */
 * {
     box-sizing: border-box;
     margin: 0;
@@ -172,7 +163,6 @@ body {
     transition: background 0.3s ease, color 0.3s ease;
 }
 
-/* Halftone Background Pattern for Comic Grid */
 body::before {
     content: "";
     position: fixed;
@@ -194,7 +184,6 @@ body::before {
     background-position: 0 0, 9px 9px;
 }
 
-/* Floating Particles Canvas */
 #canvas-particles {
     position: fixed;
     top: 0;
@@ -206,7 +195,7 @@ body::before {
 }
 
 :root[data-theme="comic-grid"] #canvas-particles, :root[data-theme="deku-comic-grid"] #canvas-particles {
-    display: none; /* Hide particles in retro comic mode */
+    display: none; 
 }
 
 a {
@@ -221,7 +210,6 @@ a:hover {
     text-decoration: underline;
 }
 
-/* --- LAYOUT WRAPPERS --- */
 .app-header {
     position: sticky;
     top: 0;
@@ -289,7 +277,6 @@ a:hover {
     z-index: 2;
 }
 
-/* --- GLASS PANELS --- */
 .glass-panel {
     background: var(--glass-bg);
     border: var(--border-width-card) solid var(--glass-border);
@@ -320,7 +307,6 @@ a:hover {
     box-shadow: 8px 8px 0px #121212;
 }
 
-/* --- BUTTONS --- */
 .btn-primary, .btn-secondary, .btn-pill, .btn-sm {
     display: inline-flex;
     align-items: center;
@@ -372,7 +358,6 @@ a:hover {
     border-radius: 20px;
 }
 
-/* Comic Grid Theme Button Overrides */
 :root[data-theme="comic-grid"] .btn-primary, :root[data-theme="deku-comic-grid"] .btn-primary {
     background: var(--accent-color);
     color: #ffffff;
@@ -402,7 +387,6 @@ a:hover {
     box-shadow: 6px 6px 0px #121212;
 }
 
-/* --- PAGE VIEWS --- */
 .page-view {
     display: none;
 }
@@ -411,7 +395,6 @@ a:hover {
     display: block;
 }
 
-/* --- 0. LANDING VIEW --- */
 .landing-container {
     max-width: 650px;
     margin: 60px auto;
@@ -467,7 +450,6 @@ a:hover {
     box-shadow: inset 4px 4px 0 rgba(0,0,0,0.05);
 }
 
-/* --- 1. PUBLIC PROFILE VIEW --- */
 .profile-banner-container {
     width: 100%;
     aspect-ratio: 3 / 1;
@@ -610,7 +592,6 @@ a:hover {
     margin-top: 12px;
 }
 
-/* Slogan Box */
 .slogan-box {
     padding: 24px;
     margin-bottom: 20px;
@@ -629,7 +610,6 @@ a:hover {
     box-shadow: 6px 6px 0px #121212;
 }
 
-/* Ask Box */
 .ask-box {
     padding: 24px;
     margin-bottom: 20px;
@@ -681,7 +661,6 @@ a:hover {
     color: var(--text-primary);
 }
 
-/* Profile Tabs Bar */
 .profile-tabs-bar {
     display: flex;
     margin-bottom: 20px;
@@ -745,7 +724,6 @@ a:hover {
     color: #ffffff;
 }
 
-/* Q&A Cards Feed */
 .qa-card {
     padding: 24px;
     margin-bottom: 16px;
@@ -770,6 +748,7 @@ a:hover {
     color: #121212;
 }
 
+/* seo req feedback */
 .qa-question-header {
     display: flex;
     justify-content: space-between;
@@ -777,6 +756,7 @@ a:hover {
     color: var(--text-secondary);
     margin-bottom: 8px;
     font-weight: 600;
+    padding-right: 28px; 
 }
 
 .qa-question-text {
@@ -832,7 +812,6 @@ a:hover {
     white-space: pre-wrap;
 }
 
-/* Card Actions (Like & Comment buttons) */
 .qa-card-actions {
     display: flex;
     align-items: center;
@@ -868,7 +847,6 @@ a:hover {
     stroke: #e53935;
 }
 
-/* Comments Section in Card */
 .comments-section {
     border-top: 1px solid var(--glass-border);
     padding-top: 16px;
@@ -912,7 +890,6 @@ a:hover {
     margin-top: 8px;
 }
 
-/* --- 2. OWNER DASHBOARD VIEW --- */
 .dashboard-grid {
     display: grid;
     grid-template-columns: 280px 1fr;
@@ -1077,7 +1054,6 @@ a:hover {
     position: relative;
 }
 
-/* Dashboard Q&As item style */
 .inbox-card-text {
     font-size: 1.05rem;
     font-weight: 600;
@@ -1096,7 +1072,6 @@ a:hover {
     flex-wrap: wrap;
 }
 
-/* Answer textarea trigger panel */
 .answer-textarea-panel {
     margin-top: 16px;
     border-top: 1px solid var(--glass-border);
@@ -1106,7 +1081,6 @@ a:hover {
     gap: 12px;
 }
 
-/* File Upload Styles */
 .file-input-wrapper {
     display: flex;
     align-items: center;
@@ -1178,7 +1152,6 @@ a:hover {
     box-shadow: 3px 3px 0px #121212;
 }
 
-/* Settings Forms */
 .form-group {
     margin-bottom: 16px;
 }
@@ -1202,7 +1175,6 @@ a:hover {
     }
 }
 
-/* Theme Options Picker Grid */
 .theme-selector-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
@@ -1256,7 +1228,6 @@ a:hover {
     border-color: var(--accent-color);
 }
 
-/* --- TOAST MESSAGES --- */
 .toast-container {
     position: fixed;
     bottom: 24px;
@@ -1292,7 +1263,6 @@ a:hover {
     border-radius: 0;
 }
 
-/* --- RENTRY CUSTOM SYNTAX PARSING STYLES --- */
 .md-center {
     text-align: center;
     margin: 8px 0;
@@ -1330,7 +1300,6 @@ a:hover {
     color: #121212;
 }
 
-/* --- ANIMATIONS --- */
 @keyframes pulseGlow {
     0%, 100% {
         transform: scale(1);
@@ -1375,7 +1344,6 @@ a:hover {
     }
 }
 
-/* Card Dropdown Menu */
 .card-options-dropdown {
     position: absolute;
     z-index: 10;
@@ -1498,7 +1466,6 @@ a:hover {
     color: #ffffff;
 }
 
-/* Quoted Card Styles */
 .quoted-card {
     background: rgba(0, 0, 0, 0.05);
     border-left: 4px solid var(--accent-color);
@@ -1536,8 +1503,6 @@ a:hover {
     box-shadow: 3px 3px 0 #121212;
 }
 
-
-/* --- DEKU COMIC GRID CUSTOM VARIABLES & OVERRIDES --- */
 :root[data-theme="deku-comic-grid"] {
     --bg-gradient: #ffffff;
     --glass-bg: #ffffff;
@@ -1545,17 +1510,17 @@ a:hover {
     --glass-shadow: none;
     --text-primary: #121212;
     --text-secondary: #444444;
-    --accent-color: #00e676; /* Aligned to pro-heroes green */
-    --accent-hover: #00c853; /* Changed from red to rich green */
+    --accent-color: #00e676; 
+    --accent-hover: #00c853; 
     --accent-bg-glow: transparent;
-    --accent-soft: #e8f5e9; /* Soft green */
+    --accent-soft: #e8f5e9; 
     --card-hover-border: #121212;
     --nav-bg: #ffffff;
     --input-bg: #ffffff;
     --input-focus-border: #121212;
     --success: #00e676;
     --logo-color: #00e676;
-    --logo-accent: #00c853; /* Changed from red to rich green */
+    --logo-accent: #00c853; 
     --font-heading: 'Bangers', cursive;
     --box-shadow-card: 6px 6px 0px #121212;
     --border-radius-card: 0px;
@@ -1567,7 +1532,6 @@ a:hover {
                       radial-gradient(rgba(0, 230, 118, 0.12) 15%, transparent 16%);
 }
 
-/* 8. Cozy Winter Costumes Theme (Icy Teal, Snow White, Katsuki Orange) */
 :root[data-theme="winter-gear"] {
     --bg-gradient: linear-gradient(135deg, #0e1e24 0%, #152930 50%, #291a10 100%);
     --glass-bg: #122128;
@@ -1575,7 +1539,7 @@ a:hover {
     --glass-shadow: rgba(178, 223, 219, 0.15);
     --text-primary: #eef8f8;
     --text-secondary: #9ab6be;
-    --accent-color: #ff6f00; /* Grenade Orange */
+    --accent-color: #ff6f00; 
     --accent-hover: #ff8f33;
     --accent-bg-glow: rgba(255, 111, 0, 0.65);
     --accent-soft: rgba(178, 223, 219, 0.15);
@@ -1592,7 +1556,6 @@ a:hover {
     --border-width-card: 1px;
 }
 
-/* 9. U.A. Gym Uniform Theme (Deep Athletic Blue, White, Crimson Red) */
 :root[data-theme="ua-gym"] {
     --bg-gradient: linear-gradient(135deg, #061124 0%, #0d2142 50%, #1d070b 100%);
     --glass-bg: #0d2142;
@@ -1600,7 +1563,7 @@ a:hover {
     --glass-shadow: rgba(13, 71, 161, 0.18);
     --text-primary: #ffffff;
     --text-secondary: #a5b7d6;
-    --accent-color: #d32f2f; /* Athletic Red */
+    --accent-color: #d32f2f; 
     --accent-hover: #ef5350;
     --accent-bg-glow: rgba(211, 47, 47, 0.65);
     --accent-soft: rgba(255, 255, 255, 0.12);
@@ -1617,7 +1580,6 @@ a:hover {
     --border-width-card: 1px;
 }
 
-/* 10. Childhood Origin Theme (Forest Green, Cardboard Orange) */
 :root[data-theme="origin-childhood"] {
     --bg-gradient: linear-gradient(135deg, #091a0c 0%, #17150c 50%, #241405 100%);
     --glass-bg: #161c14;
@@ -1625,10 +1587,10 @@ a:hover {
     --glass-shadow: rgba(255, 143, 0, 0.12);
     --text-primary: #f5fcf5;
     --text-secondary: #c5d6c2;
-    --accent-color: #ff8f00; /* Cardboard/Sunset Gold */
+    --accent-color: #ff8f00; 
     --accent-hover: #ffb300;
     --accent-bg-glow: rgba(255, 143, 0, 0.6);
-    --accent-soft: rgba(46, 125, 50, 0.15); /* Forest Green */
+    --accent-soft: rgba(46, 125, 50, 0.15); 
     --card-hover-border: #ff8f00;
     --nav-bg: #091a0c;
     --input-bg: rgba(22, 28, 20, 0.68);
@@ -1642,7 +1604,6 @@ a:hover {
     --border-width-card: 1px;
 }
 
-/* 11. Vigilante / Dark Hero Theme (Midnight Charcoal, Toxic Neon Green, Blood Crimson) */
 :root[data-theme="vigilante"] {
     --bg-gradient: linear-gradient(135deg, #07070a 0%, #0d0e12 50%, #200408 100%);
     --glass-bg: #0d0e12;
@@ -1650,10 +1611,10 @@ a:hover {
     --glass-shadow: rgba(0, 230, 118, 0.12);
     --text-primary: #f2f5f3;
     --text-secondary: #9ea8a3;
-    --accent-color: #c62828; /* Blood Crimson */
+    --accent-color: #c62828; 
     --accent-hover: #e53935;
     --accent-bg-glow: rgba(198, 40, 40, 0.65);
-    --accent-soft: rgba(0, 230, 118, 0.15); /* Neon Green */
+    --accent-soft: rgba(0, 230, 118, 0.15); 
     --card-hover-border: #00e676;
     --nav-bg: #07070a;
     --input-bg: rgba(13, 14, 18, 0.72);
@@ -1667,9 +1628,6 @@ a:hover {
     --border-width-card: 1px;
 }
 
-/* --- LIGHT MODE SCHEME OVERRIDES --- */
-
-/* 1. Wonder Duo Light Mode */
 :root[data-theme="wonder-duo"][data-scheme="light"] {
     --bg-gradient: linear-gradient(135deg, #e0f2f1 0%, #f7ebe1 100%);
     --glass-bg: #ffffff;
@@ -1688,7 +1646,6 @@ a:hover {
     --box-shadow-card: 0 8px 32px 0 rgba(0, 70, 50, 0.1);
 }
 
-/* 2. Dynamight Light Mode */
 :root[data-theme="dynamight"][data-scheme="light"] {
     --bg-gradient: linear-gradient(135deg, #faf6f0 0%, #fde4d0 100%);
     --glass-bg: #ffffff;
@@ -1707,9 +1664,8 @@ a:hover {
     --box-shadow-card: 0 8px 32px 0 rgba(100, 40, 0, 0.08);
 }
 
-/* 3. Deku Light Mode */
 :root[data-theme="deku"][data-scheme="light"] {
-    --bg-gradient: linear-gradient(135deg, #eaf6f3 0%, #eaf6f0 100%); /* Changed from pink to light green */
+    --bg-gradient: linear-gradient(135deg, #eaf6f3 0%, #eaf6f0 100%); 
     --glass-bg: #ffffff;
     --glass-border: rgba(0, 200, 118, 0.2);
     --glass-shadow: rgba(0, 200, 118, 0.08);
@@ -1722,11 +1678,10 @@ a:hover {
     --card-hover-border: #00a86b;
     --nav-bg: #ffffff;
     --input-bg: #ffffff;
-    --input-focus-border: #00c853; /* Changed from red to rich green */
+    --input-focus-border: #00c853; 
     --box-shadow-card: 0 8px 32px 0 rgba(0, 70, 50, 0.08);
 }
 
-/* 4. Comic Grid / Deku Comic Grid Dark Mode (Inverted Manga Mode) */
 :root[data-theme="comic-grid"][data-scheme="dark"] body::before,
 :root[data-theme="deku-comic-grid"][data-scheme="dark"] body::before {
     background-image: radial-gradient(rgba(255, 255, 255, 0.12) 15%, transparent 16%), 
@@ -1757,7 +1712,7 @@ a:hover {
     --text-primary: #ffffff;
     --text-secondary: #cccccc;
     --accent-color: #00e676;
-    --accent-hover: #00c853; /* Changed from orange to rich green */
+    --accent-hover: #00c853; 
     --card-hover-border: #ffffff;
     --nav-bg: #121212;
     --input-bg: #222222;
@@ -1765,7 +1720,6 @@ a:hover {
     --box-shadow-card: 6px 6px 0px #ffffff;
 }
 
-/* 5. Fantasy AU Light Mode */
 :root[data-theme="fantasy-au"][data-scheme="light"] {
     --bg-gradient: linear-gradient(135deg, #faf7f0 0%, #f3ecd8 100%);
     --glass-bg: #fffcf5;
@@ -1773,7 +1727,7 @@ a:hover {
     --glass-shadow: rgba(184, 134, 11, 0.08);
     --text-primary: #3b2a11;
     --text-secondary: #78654a;
-    --accent-color: #b8860b; /* Dark Goldenrod */
+    --accent-color: #b8860b; 
     --accent-hover: #cd853f;
     --accent-bg-glow: rgba(184, 134, 11, 0.25);
     --accent-soft: rgba(30, 90, 40, 0.08);
@@ -1784,7 +1738,6 @@ a:hover {
     --box-shadow-card: 0 8px 32px 0 rgba(80, 50, 10, 0.08);
 }
 
-/* 6. Pro Heroes Light Mode */
 :root[data-theme="pro-heroes"][data-scheme="light"] {
     --bg-gradient: linear-gradient(135deg, #f0f4f8 0%, #dbe2ea 100%);
     --glass-bg: #ffffff;
@@ -1803,7 +1756,6 @@ a:hover {
     --box-shadow-card: 0 8px 32px 0 rgba(10, 30, 60, 0.08);
 }
 
-/* 7. Winter Gear Light Mode */
 :root[data-theme="winter-gear"][data-scheme="light"] {
     --bg-gradient: linear-gradient(135deg, #f2fafe 0%, #e0f2f1 100%);
     --glass-bg: #ffffff;
@@ -1822,7 +1774,6 @@ a:hover {
     --box-shadow-card: 0 8px 32px 0 rgba(0, 50, 60, 0.06);
 }
 
-/* 8. U.A. Gym Light Mode */
 :root[data-theme="ua-gym"][data-scheme="light"] {
     --bg-gradient: linear-gradient(135deg, #f5f7fa 0%, #e4e9f2 100%);
     --glass-bg: #ffffff;
@@ -1841,7 +1792,6 @@ a:hover {
     --box-shadow-card: 0 8px 32px 0 rgba(13, 71, 161, 0.06);
 }
 
-/* 9. Childhood Light Mode */
 :root[data-theme="origin-childhood"][data-scheme="light"] {
     --bg-gradient: linear-gradient(135deg, #fafdf6 0%, #f0f7ec 100%);
     --glass-bg: #ffffff;
@@ -1860,7 +1810,6 @@ a:hover {
     --box-shadow-card: 0 8px 32px 0 rgba(10, 40, 20, 0.06);
 }
 
-/* 10. Vigilante Light Mode */
 :root[data-theme="vigilante"][data-scheme="light"] {
     --bg-gradient: linear-gradient(135deg, #f1f4f6 0%, #cbd5e1 100%);
     --glass-bg: #ffffff;
@@ -1879,7 +1828,6 @@ a:hover {
     --box-shadow-card: 0 8px 32px 0 rgba(15, 23, 42, 0.08);
 }
 
-/* --- THEME TOGGLE STYLING --- */
 #btn-theme-toggle {
     transition: transform 0.3s ease, background 0.2s ease, border-color 0.2s ease;
 }
@@ -1900,7 +1848,6 @@ a:hover {
 
 }
 
-/* --- MOBILE RESPONSIVENESS OVERRIDES --- */
 @media (max-width: 600px) {
     .nav-container {
         padding: 10px 12px !important;
@@ -1916,8 +1863,7 @@ a:hover {
         width: 22px !important;
         height: 22px !important;
     }
-    
-    /* Shrink gaps between navigation elements */
+
     .nav-container > div {
         gap: 6px !important;
     }
@@ -1937,8 +1883,7 @@ a:hover {
         width: 32px !important;
         height: 32px !important;
     }
-    
-    /* Shrink Landing Page Elements on Mobile */
+
     .landing-container {
         margin: 20px auto !important;
         padding: 30px 20px !important;
@@ -1964,6 +1909,21 @@ a:hover {
     #btn-landing-profile {
         padding: 10px 24px !important;
         font-size: 0.95rem !important;
+    }
+
+    /* seo req feedback */
+    .qa-card-actions {
+        gap: 10px !important;
+        flex-wrap: nowrap !important;
+    }
+    .action-btn {
+        font-size: 0.72rem !important;
+        gap: 4px !important;
+        white-space: nowrap !important;
+    }
+    .action-btn svg {
+        width: 14px !important;
+        height: 14px !important;
     }
 }
 

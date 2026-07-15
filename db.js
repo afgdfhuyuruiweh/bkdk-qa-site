@@ -1,4 +1,4 @@
-// BkDk Personal Database Service (Single-User Owner)
+
 
 const DEFAULT_OWNER = {
     id: "owner_bkdk",
