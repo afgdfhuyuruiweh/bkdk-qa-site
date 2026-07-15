@@ -1,13 +1,11 @@
-// Vercel Serverless Function to serve dynamic crawler metadata for individual Q&As and posts
+
 module.exports = async function handler(req, res) {
     const { id, avatar, header } = req.query;
-    
-    // Dynamically detect current host domain (works on both preview domains and custom domains)
+
     const host = req.headers.host || 'wonderduo.vercel.app';
     const protocol = req.headers['x-forwarded-proto'] || 'https';
     const originUrl = `${protocol}://${host}`;
-    
-    // 1. Handle dynamic image requests directly from Firestore (base64 or remote URL)
+
     if (avatar || header) {
         try {
             const ownerUrl = `https://firestore.googleapis.com/v1/projects/bkdkfiloweek26/databases/(default)/documents/owners/bkdk`;
@@ -26,7 +24,7 @@ module.exports = async function handler(req, res) {
                                 const base64Data = parts[1].replace(/\s/g, '');
                                 const imgBuffer = Buffer.from(base64Data, 'base64');
                                 res.setHeader("Content-Type", contentType);
-                                res.setHeader("Cache-Control", "public, max-age=3600"); // Cache for 1 hour to prevent excessive database hits
+                                res.setHeader("Cache-Control", "public, max-age=3600"); 
                                 return res.status(200).send(imgBuffer);
                             }
                         } else if (avatarVal.includes(';utf8,') || avatarVal.includes(';utf-8,') || avatarVal.includes(',')) {
@@ -57,7 +55,7 @@ module.exports = async function handler(req, res) {
                     } else if (avatarVal.startsWith('http')) {
                         return res.redirect(302, avatarVal);
                     }
-                    // Fallback to static avatar.png
+                    
                     return res.redirect(302, `${originUrl}/avatar.png`);
                 }
                 
@@ -71,7 +69,7 @@ module.exports = async function handler(req, res) {
                                 const base64Data = parts[1].replace(/\s/g, '');
                                 const imgBuffer = Buffer.from(base64Data, 'base64');
                                 res.setHeader("Content-Type", contentType);
-                                res.setHeader("Cache-Control", "public, max-age=3600"); // Cache for 1 hour
+                                res.setHeader("Cache-Control", "public, max-age=3600"); 
                                 return res.status(200).send(imgBuffer);
                             }
                         } else if (headerVal.includes(';utf8,') || headerVal.includes(';utf-8,') || headerVal.includes(',')) {
@@ -102,8 +100,7 @@ module.exports = async function handler(req, res) {
                     } else if (headerVal.startsWith('http')) {
                         return res.redirect(302, headerVal);
                     }
-                    
-                    // Fallback banner gradient SVG
+
                     const defaultSvg = `<svg xmlns="http://www.w3.org/2000/svg" width="800" height="400">
                         <defs>
                             <linearGradient id="grad" x1="0%" y1="0%" x2="100%" y2="100%">
@@ -121,8 +118,7 @@ module.exports = async function handler(req, res) {
         } catch (err) {
             console.error("Error serving dynamic resource from Firestore:", err);
         }
-        
-        // Final fallback if anything fails
+
         if (avatar) {
             return res.redirect(302, `${originUrl}/avatar.png`);
         } else {
@@ -131,16 +127,12 @@ module.exports = async function handler(req, res) {
         }
     }
 
-    // Default metadata values
     let userHandle = "wonderduo";
     let userDisplayName = "wonder duo";
-    
-    // We fetch the dynamic avatar and header endpoints so they remain synced with Firestore.
-    // Adding a timestamp/version helps bypass caching of old profile pictures.
+
     const cacheBuster = Date.now();
     const avatarUrl = `${originUrl}/avatar.jpg?v=${cacheBuster}`;
-    
-    // 2. Fetch owner details from Firestore to show correct displayName and handle in previews
+
     try {
         const ownerUrl = `https://firestore.googleapis.com/v1/projects/bkdkfiloweek26/databases/(default)/documents/owners/bkdk`;
         const ownerRes = await fetch(ownerUrl);
@@ -155,8 +147,7 @@ module.exports = async function handler(req, res) {
     } catch (err) {
         console.error("Error fetching owner profile in share script:", err);
     }
-    
-    // Helper to truncate text with ellipsis if it exceeds limit
+
     const truncate = (text, maxLength) => {
         if (!text) return "";
         if (text.length <= maxLength) return text;
@@ -165,8 +156,7 @@ module.exports = async function handler(req, res) {
 
     let title = "wonder duo Q&A 💥🥦";
     let desc = "Ask us questions anonymously or publicly! BakuDeku Q&A Space.";
-    
-    // 3. If a Q&A or Post ID is specified, fetch the details to customize metadata tags
+
     if (id) {
         try {
             const firestoreUrl = `https://firestore.googleapis.com/v1/projects/bkdkfiloweek26/databases/(default)/documents/questions/${id}`;
@@ -196,8 +186,7 @@ module.exports = async function handler(req, res) {
             console.error("Error fetching question metadata from Firestore:", err);
         }
     }
-    
-    // Escape quotes to prevent breaking meta tags
+
     const escapeHtml = (text) => {
         if (!text) return "";
         return text
@@ -213,7 +202,6 @@ module.exports = async function handler(req, res) {
     const escapedId = id ? encodeURIComponent(id) : "";
     const redirectUrl = id ? `/?q=${escapedId}#u/${userHandle}` : `/#u/${userHandle}`;
     
-    // Serve HTML with custom meta tags and instant redirect
     res.setHeader("Content-Type", "text/html; charset=utf-8");
     res.status(200).send(`<!DOCTYPE html>
 <html lang="en">
