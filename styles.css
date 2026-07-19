@@ -758,11 +758,24 @@ a:hover {
     color: var(--text-secondary);
     margin-bottom: 8px;
     font-weight: 600;
-    padding-right: 28px; 
+    padding-right: 28px;
+    min-width: 0;
 }
 
 .qa-question-header span {
     white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    min-width: 0;
+}
+
+.qa-question-header span:first-child {
+    flex-shrink: 1;
+}
+
+.qa-question-header span:last-child {
+    flex-shrink: 0;
+    margin-left: 8px;
 }
 
 .qa-question-text {
@@ -792,25 +805,34 @@ a:hover {
 
 .qa-answer-main {
     flex: 1;
+    min-width: 0; /* Enable flex-shrink on children */
 }
 
 .qa-answer-header {
     display: flex;
     align-items: center;
-    gap: 8px;
+    justify-content: space-between;
+    gap: 12px;
     margin-bottom: 6px;
     padding-right: 32px; /* Prevent overlap with options dropdown */
+    min-width: 0;
 }
 
 .qa-answerer-name {
     font-weight: 700;
     font-size: 0.95rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    flex-shrink: 1;
+    min-width: 0;
 }
 
 .qa-answer-time {
     font-size: 0.75rem;
     color: var(--text-secondary);
     white-space: nowrap;
+    flex-shrink: 0;
 }
 
 .qa-answer-text {
@@ -1876,6 +1898,10 @@ a:hover {
         gap: 6px !important;
     }
     
+    .nav-links {
+        gap: 6px !important;
+    }
+    
     #nav-auth-container > div {
         gap: 6px !important;
     }
@@ -1945,6 +1971,9 @@ a:hover {
         gap: 4px !important;
     }
     .nav-container > div {
+        gap: 4px !important;
+    }
+    .nav-links {
         gap: 4px !important;
     }
     #nav-auth-container > div {
