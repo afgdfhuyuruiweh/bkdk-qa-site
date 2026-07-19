@@ -761,6 +761,10 @@ a:hover {
     padding-right: 28px; 
 }
 
+.qa-question-header span {
+    white-space: nowrap;
+}
+
 .qa-question-text {
     font-size: 1.05rem;
     font-weight: 600;
@@ -806,6 +810,7 @@ a:hover {
 .qa-answer-time {
     font-size: 0.75rem;
     color: var(--text-secondary);
+    white-space: nowrap;
 }
 
 .qa-answer-text {
@@ -1929,4 +1934,26 @@ a:hover {
         height: 14px !important;
     }
 }
+
+@media (max-width: 380px) {
+    .nav-container {
+        padding: 8px 6px !important;
+        gap: 4px !important;
+    }
+    .logo-link {
+        font-size: 1.15rem !important;
+        gap: 4px !important;
+    }
+    .nav-container > div {
+        gap: 4px !important;
+    }
+    #nav-auth-container > div {
+        gap: 4px !important;
+    }
+    .btn-sm {
+        padding: 4px 6px !important;
+        font-size: 0.72rem !important;
+    }
+}
+
 

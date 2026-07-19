@@ -967,9 +967,9 @@ function updateNavbarAuth(user) {
     const container = document.getElementById('nav-auth-container');
     if (user) {
         container.innerHTML = `
-            <div style="display: flex; align-items: center; gap: 12px;">
-                <button class="btn-secondary btn-sm" id="btn-goto-dash" style="padding: 6px 14px;">Dashboard</button>
-                <button class="btn-secondary btn-sm" id="btn-logout" style="padding: 6px 14px; border-color: #d9383a; color: #d9383a;">Sign Out</button>
+            <div class="nav-auth-buttons" style="display: flex; align-items: center; gap: 8px;">
+                <button class="btn-secondary btn-sm" id="btn-goto-dash">Dashboard</button>
+                <button class="btn-secondary btn-sm" id="btn-logout" style="border-color: #d9383a; color: #d9383a;">Sign Out</button>
             </div>
         `;
         document.getElementById('btn-goto-dash').addEventListener('click', () => {
@@ -1394,7 +1394,6 @@ function openShareModal(type, data = null) {
         } else {
             textToShare = `"${data.text}"`;
         }
-        
         if (textToShare.length > 200) {
             textToShare = textToShare.substring(0, 197) + "...";
         }
