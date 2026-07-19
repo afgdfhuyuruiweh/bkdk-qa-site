@@ -1879,6 +1879,10 @@ a:hover {
 }
 
 @media (max-width: 600px) {
+    .app-main {
+        padding: 16px 12px !important;
+    }
+
     .nav-container {
         padding: 10px 12px !important;
         gap: 8px !important;
@@ -1962,6 +1966,9 @@ a:hover {
 }
 
 @media (max-width: 380px) {
+    .app-main {
+        padding: 12px 6px !important;
+    }
     .nav-container {
         padding: 8px 6px !important;
         gap: 4px !important;
