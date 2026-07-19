@@ -244,6 +244,7 @@ a:hover {
     color: var(--text-primary);
     text-decoration: none !important;
     letter-spacing: 0.5px;
+    white-space: nowrap;
 }
 
 :root[data-theme="comic-grid"] .logo-link, :root[data-theme="deku-comic-grid"] .logo-link {
@@ -318,6 +319,7 @@ a:hover {
     cursor: pointer;
     transition: all 0.2s ease;
     outline: none;
+    white-space: nowrap;
 }
 
 .btn-primary {
@@ -793,6 +795,7 @@ a:hover {
     align-items: center;
     gap: 8px;
     margin-bottom: 6px;
+    padding-right: 32px; /* Prevent overlap with options dropdown */
 }
 
 .qa-answerer-name {
